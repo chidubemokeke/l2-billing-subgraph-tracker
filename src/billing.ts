@@ -1,173 +1,41 @@
+import { BigInt } from "@graphprotocol/graph-ts";
 import {
-  CollectorUpdated as CollectorUpdatedEvent,
-  InsufficientBalanceForRemoval as InsufficientBalanceForRemovalEvent,
-  L1BillingConnectorUpdated as L1BillingConnectorUpdatedEvent,
-  L2TokenGatewayUpdated as L2TokenGatewayUpdatedEvent,
-  NewOwnership as NewOwnershipEvent,
-  NewPendingOwnership as NewPendingOwnershipEvent,
   TokensAdded as TokensAddedEvent,
-  TokensPulled as TokensPulledEvent,
   TokensRemoved as TokensRemovedEvent,
-  TokensRescued as TokensRescuedEvent
-} from "../generated/billing/billing"
-import {
-  CollectorUpdated,
-  InsufficientBalanceForRemoval,
-  L1BillingConnectorUpdated,
-  L2TokenGatewayUpdated,
-  NewOwnership,
-  NewPendingOwnership,
-  TokensAdded,
-  TokensPulled,
-  TokensRemoved,
-  TokensRescued
-} from "../generated/schema"
+  TokensPulled as TokensPulledEvent,
+} from "../generated/Billing/Billing";
+import { createOrLoadAccount } from "./helpers/utils";
 
-export function handleCollectorUpdated(event: CollectorUpdatedEvent): void {
-  let entity = new CollectorUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.collector = event.params.collector
-  entity.enabled = event.params.enabled
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleInsufficientBalanceForRemoval(
-  event: InsufficientBalanceForRemovalEvent
-): void {
-  let entity = new InsufficientBalanceForRemoval(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
-  entity.amount = event.params.amount
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleL1BillingConnectorUpdated(
-  event: L1BillingConnectorUpdatedEvent
-): void {
-  let entity = new L1BillingConnectorUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.l1BillingConnector = event.params.l1BillingConnector
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleL2TokenGatewayUpdated(
-  event: L2TokenGatewayUpdatedEvent
-): void {
-  let entity = new L2TokenGatewayUpdated(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.l2TokenGateway = event.params.l2TokenGateway
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleNewOwnership(event: NewOwnershipEvent): void {
-  let entity = new NewOwnership(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleNewPendingOwnership(
-  event: NewPendingOwnershipEvent
-): void {
-  let entity = new NewPendingOwnership(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleTokensAdded(event: TokensAddedEvent): void {
-  let entity = new TokensAdded(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.user = event.params.user
-  entity.amount = event.params.amount
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleTokensPulled(event: TokensPulledEvent): void {
-  let entity = new TokensPulled(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.user = event.params.user
-  entity.amount = event.params.amount
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
+// Handle the TokensRemoved event
 export function handleTokensRemoved(event: TokensRemovedEvent): void {
-  let entity = new TokensRemoved(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.from = event.params.from
-  entity.to = event.params.to
-  entity.amount = event.params.amount
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  let account = createOrLoadAccount(event.params.from.toHexString());
+  account.billingBalance = account.billingBalance.minus(event.params.amount);
+  account.queryFeesPaid = account.queryFeesPaid.minus(event.params.amount);
+  account.save();
 }
 
-export function handleTokensRescued(event: TokensRescuedEvent): void {
-  let entity = new TokensRescued(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.to = event.params.to
-  entity.token = event.params.token
-  entity.amount = event.params.amount
+// Handle the TokensPulled event
+export function handleTokensPulled(event: TokensPulledEvent): void {
+  let account = createOrLoadAccount(event.params.user.toHex());
+  account.billingBalance = account.billingBalance.minus(event.params.amount);
+  account.queryFeesPaid = account.queryFeesPaid.minus(event.params.amount);
+  account.save();
+}
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+// Handle the TokensAdded event
+export function handleTokensAdded(event: TokensAddedEvent): void {
+  let account = createOrLoadAccount(event.params.user.toHex());
+  account.billingBalance = account.billingBalance.plus(event.params.amount);
 
-  entity.save()
+  // Check if queryFeesPaid exists; if not, set it to zero
+  if (
+    account.queryFeesPaid === null ||
+    account.queryFeesPaid == BigInt.zero()
+  ) {
+    account.queryFeesPaid = BigInt.zero();
+  } else {
+    // Convert queryFeesPaid to BigInt if it's not already
+    account.queryFeesPaid = account.queryFeesPaid;
+  }
+  account.save();
 }
