@@ -1,4 +1,4 @@
-import { BigInt, Bytes } from "@graphprotocol/graph-ts";
+//import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import {
   Account as AccountEntity,
   Subgraph as SubgraphEntity,
