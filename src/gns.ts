@@ -5,10 +5,11 @@ import {
   SubgraphVersionUpdated as SubgraphVersionUpdatedEvent,
 } from "../generated/GNS/GNS";
 import { arbitrumOneSubgraph } from "./helpers/utils";
-import { fetchSubgraphMetadata } from "./helpers/utils.metadata";
+import {
+  fetchSubgraphMetadata,
+  extractIpfsHashFromEventData,
+} from "./helpers/utils.metadata";
 import { L2SubgraphMetadata } from "../generated/schema";
-
- 
 
 // Handle SubgraphPublished event
 export function handleSubgraphPublished(event: SubgraphPublishedEvent): void {
@@ -30,15 +31,6 @@ export function handleSubgraphPublished(event: SubgraphPublishedEvent): void {
   // Handle the updated metadata accordingly
   let ipfsHash = 
 }*/
-
-function extractIpfsHashFromEventData(event: SubgraphMetadataUpdatedEvent): string | null {
-  // Here you should implement your logic to extract the IPFS hash from the event
-  // For example, if the IPFS hash is part of the event parameters, you can access it like event.params.ipfsHash
-  // Replace this with your actual event structure and extraction logic
-  const ipfshash = ipfs.cat.toString(event.params.subgraphMetadataId());  (subgraphID.slice(2))).toBase58()
-
-  return event.params.ipfsHash.toHex(); // Assuming ipfsHash is a Bytes32
-}
 
 // Handle SubgraphMetadataUpdated event
 export function handleSubgraphMetadata(
