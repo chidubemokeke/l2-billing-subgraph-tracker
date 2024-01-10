@@ -46,15 +46,13 @@ dataSources:
       eventHandlers:
         - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
           handler: handleSubgraphPublished
-        - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
-          handler: handleSubgraphUpgraded
         - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
           handler: handleSubgraphVersionUpdated
         - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
           handler: handleSubgraphMetadataUpdated
       file: ./src/gns.ts
 templates:
-  - name: SubgraphMetadata
+  - name: L2SubgraphMetadata
     kind: file/ipfs
     mapping:
       apiVersion: 0.0.7
@@ -62,7 +60,7 @@ templates:
       file: ./src/mapping.ts
       handler: handleMetadata
       entities:
-        - SubgraphMetadata
+        - L2SubgraphMetadata
       abis:
         - name: Metadata
           file: ./abis/GNS.json

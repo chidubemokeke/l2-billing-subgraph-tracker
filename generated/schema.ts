@@ -217,7 +217,7 @@ export class Subgraph extends Entity {
   }
 }
 
-export class SubgraphMetadata extends Entity {
+export class L2SubgraphMetadata extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -225,25 +225,25 @@ export class SubgraphMetadata extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save SubgraphMetadata entity without an ID");
+    assert(id != null, "Cannot save L2SubgraphMetadata entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type SubgraphMetadata must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type L2SubgraphMetadata must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("SubgraphMetadata", id.toString(), this);
+      store.set("L2SubgraphMetadata", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): SubgraphMetadata | null {
-    return changetype<SubgraphMetadata | null>(
-      store.get_in_block("SubgraphMetadata", id)
+  static loadInBlock(id: string): L2SubgraphMetadata | null {
+    return changetype<L2SubgraphMetadata | null>(
+      store.get_in_block("L2SubgraphMetadata", id)
     );
   }
 
-  static load(id: string): SubgraphMetadata | null {
-    return changetype<SubgraphMetadata | null>(
-      store.get("SubgraphMetadata", id)
+  static load(id: string): L2SubgraphMetadata | null {
+    return changetype<L2SubgraphMetadata | null>(
+      store.get("L2SubgraphMetadata", id)
     );
   }
 

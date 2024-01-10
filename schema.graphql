@@ -28,7 +28,7 @@ type Subgraph @entity {
   queryFees: BigInt!
 }
 
-type SubgraphMetadata @entity {
+type L2SubgraphMetadata @entity {
   # Metadata from IPFS linked in GNS
   id: ID!
   "Subgraph metadata"

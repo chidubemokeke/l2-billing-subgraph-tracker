@@ -1,5 +1,5 @@
 import { json, ipfs, Bytes, JSONValueKind } from "@graphprotocol/graph-ts";
-import { SubgraphMetadata } from "../../generated/schema";
+import { L2SubgraphMetadata } from "../../generated/schema";
 import { jsonToString } from "../helpers/utils-json";
 import { arbitrumOneSubgraph } from "../helpers/utils";
 
@@ -9,10 +9,11 @@ import { arbitrumOneSubgraph } from "../helpers/utils";
  * @param ipfsHash - IPFS hash of the metadata content
  * @returns Updated SubgraphMetadata entity
  */
+
 export function fetchSubgraphMetadata(
-  subgraphMetadata: SubgraphMetadata,
+  subgraphMetadata: L2SubgraphMetadata,
   ipfsHash: string
-): SubgraphMetadata {
+): L2SubgraphMetadata {
   // Fetch the metadata content from IPFS based on the provided hash
   let metadata = ipfs.cat(ipfsHash);
 
