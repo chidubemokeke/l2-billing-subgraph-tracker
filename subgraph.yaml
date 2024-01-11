@@ -52,7 +52,7 @@ dataSources:
           handler: handleSubgraphMetadataUpdated
       file: ./src/gns.ts
 templates:
-  - name: L2SubgraphMetadata
+  - name: SubgraphMetadata
     kind: file/ipfs
     mapping:
       apiVersion: 0.0.7
