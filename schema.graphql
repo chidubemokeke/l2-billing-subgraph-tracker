@@ -38,7 +38,7 @@ type L2SubgraphMetadata @entity {
   "Token ID"
   tokenID: BigInt!
   "SubgraphURI"
-  subgraphURI: Bytes!
+  Uri: Bytes!
   "Short description of the subgraph"
   description: String
   "Image in string format"

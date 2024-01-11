@@ -299,8 +299,8 @@ export class L2SubgraphMetadata extends Entity {
     this.set("tokenID", Value.fromBigInt(value));
   }
 
-  get subgraphURI(): Bytes {
-    let value = this.get("subgraphURI");
+  get Uri(): Bytes {
+    let value = this.get("Uri");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -308,8 +308,8 @@ export class L2SubgraphMetadata extends Entity {
     }
   }
 
-  set subgraphURI(value: Bytes) {
-    this.set("subgraphURI", Value.fromBytes(value));
+  set Uri(value: Bytes) {
+    this.set("Uri", Value.fromBytes(value));
   }
 
   get description(): string | null {
