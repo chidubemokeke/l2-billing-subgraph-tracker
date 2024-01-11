@@ -35,6 +35,10 @@ type L2SubgraphMetadata @entity {
   metadataHash: Bytes!
   "Subgraph metadata ipfs hash"
   ipfsMetadataHash: Bytes!
+  "Token ID"
+  tokenID: BigInt!
+  "SubgraphURI"
+  subgraphURI: Bytes!
   "Short description of the subgraph"
   description: String
   "Image in string format"

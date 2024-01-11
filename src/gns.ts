@@ -1,15 +1,18 @@
-import { BigInt, ipfs } from "@graphprotocol/graph-ts";
+import { BigInt, log } from "@graphprotocol/graph-ts";
 import {
   SubgraphPublished as SubgraphPublishedEvent,
   SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent,
-  SubgraphVersionUpdated as SubgraphVersionUpdatedEvent,
 } from "../generated/GNS/GNS";
 import { arbitrumOneSubgraph } from "./helpers/utils";
 import {
   fetchSubgraphMetadata,
   extractIpfsHashFromEventData,
 } from "./helpers/utils.metadata";
-import { L2SubgraphMetadata } from "../generated/schema";
+import {
+  L2SubgraphMetadata,
+  SubgraphDeployment,
+  Transaction,
+} from "../generated/schema";
 
 // Handle SubgraphPublished event
 export function handleSubgraphPublished(event: SubgraphPublishedEvent): void {
@@ -21,33 +24,53 @@ export function handleSubgraphPublished(event: SubgraphPublishedEvent): void {
   subgraph.save();
 }
 
-/*export function handleSubgraphMetadata(
-  event: SubgraphMetadataUpdatedEvent
-): void {
-  let subgraphMetadataId = event.params.subgraphMetadata.toHex();
-  let ipfsHash = "your_ipfs_hash_here"; // Replace this with the actual IPFS hash
-
-  let updatedMetadata = fetchSubgraphMetadata(subgraphMetadataId, ipfsHash);
-  // Handle the updated metadata accordingly
-  let ipfsHash = 
-}*/
-
 // Handle SubgraphMetadataUpdated event
 export function handleSubgraphMetadata(
   event: SubgraphMetadataUpdatedEvent
 ): void {
-  let subgraphMetadataId = event.params.subgraphMetadata.toHex();
-
   // Extracting the IPFS hash from the event data
-  let ipfsHash = extractIpfsHashFromEventData(event);
+  const ipfsHash = extractIpfsHashFromEventData(event);
 
   if (ipfsHash) {
     // If the IPFS hash is available, fetch the metadata
-    let updatedMetadata = fetchSubgraphMetadata(subgraphMetadataId, ipfsHash);
-    // Handle the updated metadata accordingly
+    let subgraphMetadata = fetchSubgraphMetadata(
+      new L2SubgraphMetadata(event.params.subgraphMetadata.toHex()),
+      ipfsHash
+    );
+    // Save the updated metadata
+    subgraphMetadata.save();
   } else {
     // Handle the case where the IPFS hash couldn't be extracted
     // or isn't available in the event data
-    // You might log an error or take any necessary action here
+    // Log an error
+    log.error("IPFS hash not available", []);
   }
+}
+
+// Mapping for SubgraphDeployment entity
+export function createOrUpdateSubgraphDeployment(
+  ipfsHash: string,
+  createdAt: BigInt
+): void {
+  let subgraphDeployment = SubgraphDeployment.load(ipfsHash);
+
+  if (!subgraphDeployment) {
+    subgraphDeployment = new SubgraphDeployment(ipfsHash);
+    subgraphDeployment.createdAt = createdAt.toI32();
+  }
+
+  subgraphDeployment.save();
+}
+
+// Mapping for Transaction entity
+export function createTransaction(
+  accountId: string,
+  amount: BigInt,
+  timestamp: BigInt
+): void {
+  let transaction = new Transaction(accountId + timestamp.toString());
+  transaction.account = accountId;
+  transaction.amount = amount;
+  transaction.timestamp = timestamp;
+  transaction.save();
 }

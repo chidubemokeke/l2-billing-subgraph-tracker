@@ -286,6 +286,32 @@ export class L2SubgraphMetadata extends Entity {
     this.set("ipfsMetadataHash", Value.fromBytes(value));
   }
 
+  get tokenID(): BigInt {
+    let value = this.get("tokenID");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenID(value: BigInt) {
+    this.set("tokenID", Value.fromBigInt(value));
+  }
+
+  get subgraphURI(): Bytes {
+    let value = this.get("subgraphURI");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set subgraphURI(value: Bytes) {
+    this.set("subgraphURI", Value.fromBytes(value));
+  }
+
   get description(): string | null {
     let value = this.get("description");
     if (!value || value.kind == ValueKind.NULL) {
