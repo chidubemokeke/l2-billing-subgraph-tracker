@@ -1,21 +1,32 @@
 import { JSONValue, JSONValueKind, BigDecimal } from "@graphprotocol/graph-ts";
 
-// Converts a JSONValue to a string if it's of kind STRING, otherwise returns an empty string
+/**
+ * Make sure the given JSONValue is a string and returns string it contains.
+ * Returns blank string otherwise.
+ */
 export function jsonToString(val: JSONValue | null): string {
-  return val?.kind === JSONValueKind.STRING ? val.toString() : "";
-}
-
-// Converts a JSONValue array to an array of strings, skipping non-string elements
-export function jsonToArrayString(val: JSONValue | null): string[] {
-  if (val?.kind === JSONValueKind.ARRAY) {
-    // Filter the array to keep only string elements and convert them to strings
-    return val
-      .toArray()
-      .filter((element) => element.kind === JSONValueKind.STRING)
-      .map((element) => element.toString());
+  if (val != null && val.kind === JSONValueKind.STRING) {
+    return val.toString();
   }
-  return []; // Returns an empty array if the input is not an array or contains no string elements
+  return "";
 }
 
-// Initializes a constant zero BigDecimal
-export const zeroBD = BigDecimal.fromString("0");
+/**
+ * Make sure the given JSONValue is an array of strings and returns
+ * It optimistically skips over any values that are not string within the array
+ * Returns blank array otherwise
+ */
+export function jsonToArrayString(val: JSONValue | null): Array<string> {
+  if (val != null && val.kind === JSONValueKind.ARRAY) {
+    let valArray = val.toArray();
+    let result: Array<string> = [];
+    for (let i = 0; i < valArray.length; i++) {
+      if (valArray[i].kind === JSONValueKind.STRING)
+        result.push(valArray[i].toString());
+    }
+    return result;
+  }
+  return [];
+}
+
+export let zeroBD = BigDecimal.fromString("0");
