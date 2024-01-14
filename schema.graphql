@@ -71,4 +71,5 @@ type Transaction @entity {
   amount: BigInt!
   # The timestamp of when the transaction occurred.
   timestamp: BigInt
+  #
 }
