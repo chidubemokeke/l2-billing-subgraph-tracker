@@ -44,7 +44,7 @@ dataSources:
         - name: GNS
           file: ./abis/GNS.json
       eventHandlers:
-        - event: SubgraphReceivedFromL1(indexed uint256,indexed uint256,indexed address)
+        - event: SubgraphReceivedFromL1(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleSubgraphReceivedFromL1
         - event: CuratorBalanceReceived(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleCuratorBalanceReceived
@@ -52,10 +52,11 @@ dataSources:
           handler: handleSubgraphVersionUpdated
         - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
           handler: handleSubgraphPublished
-        - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
-          handler: handleSubgraphMetadataUpdated
         - event: SubgraphMetadataUpdated(uint256,bytes32)
           handler: handleSubgraphMetadataUpdated
+        - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
+          handler: handleSubgraphMetadataUpdated
+
       file: ./src/gns.ts
 templates:
   - name: SubgraphMetadata
