@@ -19,12 +19,16 @@ dataSources:
         - name: billing
           file: ./abis/billing.json
       eventHandlers:
+        - event: CollectorUpdated(indexed address,boolean)
+          handler: handleCollectorUpdated
         - event: TokensAdded(indexed address,uint256)
           handler: handleTokensAdded
         - event: TokensPulled(indexed address,uint256)
           handler: handleTokensPulled
         - event: TokensRemoved(indexed address,indexed address,uint256)
           handler: handleTokensRemoved
+        - event: TokensRescued(indexed address,indexed address,uint256)
+          handler: HandleTokensRescued
       file: ./src/billing.ts
   - kind: ethereum
     name: GNS

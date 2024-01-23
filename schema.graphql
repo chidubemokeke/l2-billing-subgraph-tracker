@@ -11,7 +11,7 @@ type BillingEntry @entity {
   # Query fees withdrawn
   withdrawnQueryFees: BigInt!
   # Timestamp of the billing entry
-  timestamp: DateTime! # Updated to use a specific timestamp type
+  timestamp: BigInt!
   # Field for referencing a Subgraph
   subgraph: Subgraph!
   # Field for referencing an Account
@@ -41,7 +41,7 @@ type Account @entity {
   # Unique identifier for the Account
   id: ID!
   # Time the account was created
-  createdAt: DateTime! # Updated to use a specific timestamp type
+  createdAt: BigInt!
   # Owner's Ethereum address
   address: Bytes!
   # List of subgraphs associated with this account
