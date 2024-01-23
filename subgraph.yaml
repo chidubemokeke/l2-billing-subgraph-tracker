@@ -37,7 +37,7 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      entities:    
+      entities:
         - Subgraph
         - Account
       abis:
@@ -56,19 +56,15 @@ dataSources:
           handler: handleSubgraphMetadataUpdated
         - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
           handler: handleSubgraphMetadataUpdated
-
-      file: ./src/gns.ts
 templates:
-  - name: SubgraphMetadata
-    kind: file/ipfs
+  - kind: file/ipfs
+    name: IpfsMetadata
     mapping:
+      kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/gns.ts
-      handler: handleMetadata
       entities:
-        - L2SubgraphMetadata
-        - L1SubgraphURI
+        - Metadata
       abis:
         - name: Metadata
           file: ./abis/GNS.json
