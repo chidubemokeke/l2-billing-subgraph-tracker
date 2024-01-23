@@ -11,7 +11,7 @@ type BillingEntry @entity {
   # Query fees withdrawn
   withdrawnQueryFees: BigInt!
   # Timestamp of the billing entry
-  timestamp: String!
+  timestamp: DateTime! # Updated to use a specific timestamp type
   # Field for referencing a Subgraph
   subgraph: Subgraph!
   # Field for referencing an Account
@@ -24,9 +24,9 @@ type BillingEntry @entity {
 type Subgraph @entity {
   # Unique identifier for the Subgraph
   id: ID!
-  # account entity associated with this subgraph
+  # Account entity associated with this subgraph
   owner: Account!
-  "Token ID"
+  # Token ID
   tokenID: BigInt!
   # List of billing entries associated with the Subgraph
   billing: [BillingEntry!]! @derivedFrom(field: "subgraph")
@@ -41,7 +41,7 @@ type Account @entity {
   # Unique identifier for the Account
   id: ID!
   # Time the account was created
-  createdAt: Int!
+  createdAt: DateTime! # Updated to use a specific timestamp type
   # Owner's Ethereum address
   address: Bytes!
   # List of subgraphs associated with this account
@@ -51,24 +51,25 @@ type Account @entity {
 }
 
 # Represents metadata associated with a Subgraph
-type Metadata @entity(immutable: true) {
+type SubgraphMetadata
+  @entity(immutable: true) { # Updated type name
   # Metadata from IPFS linked in GNS
   id: ID!
   # The name of the subgraph.
   name: String!
-  "Subgraph metadata ipfs hash"
+  # Subgraph metadata IPFS hash
   ipfsMetadataHash: Bytes!
-  "SubgraphURI"
+  # Subgraph URI
   subgraphUri: Bytes!
-  "Short description of the subgraph"
+  # Short description of the subgraph
   description: String
-  "Image in string format"
+  # Image in string format
   image: String
-  "NFT Image representation"
+  # NFT Image representation
   nftImage: String
-  "Location of the code for this project"
+  # Location of the code for this project
   codeRepository: String
-  "Projects website"
+  # Project's website
   website: String
 }
 
@@ -78,7 +79,7 @@ type SubgraphVersion {
   id: ID!
   # Label for the version
   label: String!
-  "Subgraph Deployment ID. The IPFS hash with Qm removed to fit into 32 bytes"
+  # Subgraph Deployment ID. The IPFS hash with Qm removed to fit into 32 bytes
   currentVersionId: Bytes!
   # Versions associated with Subgraph
   version: Subgraph!
@@ -95,7 +96,7 @@ type SubgraphDeployment {
   # Signal amount for the deployment
   signalAmount: BigInt!
   # Timestamp of deployment creation
-  createdAt: BigInt!
+  createdAt: DateTime! # Updated to use a specific timestamp type
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
