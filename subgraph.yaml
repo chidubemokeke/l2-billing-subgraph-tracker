@@ -70,7 +70,7 @@ templates:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Metadata
+        - SubgraphMetadata
       abis:
-        - name: Metadata
+        - name: GNS
           file: ./abis/GNS.json
