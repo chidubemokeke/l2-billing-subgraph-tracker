@@ -48,18 +48,20 @@ dataSources:
         - name: GNS
           file: ./abis/GNS.json
       eventHandlers:
-        - event: SubgraphReceivedFromL1(indexed uint256,indexed uint256,indexed address,uint256)
-          handler: handleSubgraphReceivedFromL1
         - event: CuratorBalanceReceived(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleCuratorBalanceReceived
-        - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
-          handler: handleSubgraphVersionUpdated
+        - event: CuratorBalanceReturnedToBeneficiary(uint256,indexed address,uint256)
+          handler: handleCuratorBalanceReturnedToBeneficiary
+        - event: GRTWithdrawn(uint256,indexed address,uint256,uint256)
+          handler: handleGRTWithdrawn
         - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
           handler: handleSubgraphPublished
-        - event: SubgraphMetadataUpdated(uint256,bytes32)
-          handler: handleSubgraphMetadataUpdated
-        - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
-          handler: handleSubgraphMetadataUpdated
+        - event: SubgraphReceivedFromL1(uint256,indexed uint256,indexed address,uint256)
+          handler: handleSubgraphReceivedFromL1
+        - event: SubgraphUpgraded(uint256,uint256,uint256,bytes32)
+          handler: handleSubgraphUpgraded
+        - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
+          handler: handleSubgraphVersionUpdated
 templates:
   - kind: file/ipfs
     name: IpfsMetadata
