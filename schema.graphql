@@ -84,7 +84,7 @@ type SubgraphVersion {
   # Versions associated with Subgraph
   version: Subgraph!
   # List of deployments associated with the version
-  deployments: [SubgraphDeployment!]! @derivedFrom(field: "deploymentList")
+  deployments: [SubgraphDeployment!]! @derivedFrom(field: "deployments")
 }
 
 # Represents a deployment of a Subgraph version
@@ -100,7 +100,7 @@ type SubgraphDeployment {
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
-  deploymentList: SubgraphVersion!
+  deployments: SubgraphVersion!
   # List of billing entries associated with the deployment
   billing: [BillingEntry!]! @derivedFrom(field: "deploymentList")
 }

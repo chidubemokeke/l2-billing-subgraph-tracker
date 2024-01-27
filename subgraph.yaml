@@ -54,6 +54,7 @@ dataSources:
           handler: handleCuratorBalanceReturnedToBeneficiary
         - event: GRTWithdrawn(uint256,indexed address,uint256,uint256)
           handler: handleGRTWithdrawn
+        - event: ContractSynced(bytes32)
         - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
           handler: handleSubgraphPublished
         - event: SubgraphReceivedFromL1(uint256,indexed uint256,indexed address,uint256)
