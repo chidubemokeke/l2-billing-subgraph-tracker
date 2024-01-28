@@ -68,12 +68,11 @@ templates:
   - kind: file/ipfs
     name: IpfsMetadata
     mapping:
-      kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
+      file: ./src/l2gns.ts
       entities:
         - SubgraphMetadata
       abis:
         - name: L2GNS
           file: ./abis/L2GNS.json
-      eventHandlers: handleSubgraphMetadataUpdated
