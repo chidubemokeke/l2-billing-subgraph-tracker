@@ -59,6 +59,7 @@ dataSources:
         - event: SignalBurned(indexed uint256,indexed address,uint256,uint256)
           handler: handleSignalBurned
         - event: SubgraphNFTUpdated(address)
+          handler: handleSubgraphNFTUpdated
         - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
           handler: handleSubgraphMetadataUpdated
         - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)

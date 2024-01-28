@@ -6,8 +6,6 @@ type BillingEntry @entity {
   balance: BigInt!
   # Tokens received
   tokensIn: BigInt!
-  # GRT withdrawn
-  withdrawnGRT: BigInt!
   # Query fees withdrawn
   withdrawnQueryFees: BigInt!
   # Timestamp of the billing entry
@@ -28,6 +26,18 @@ type Subgraph @entity {
   owner: Account!
   # Token ID
   tokenID: BigInt!
+  # Amount of normalized signal tokens created
+  nSignal: BigInt!
+  # Amount of normalized signal tokens transferred
+  nSignalTransferred: BigInt!
+  # Amount of normalized signal tokens burnt
+  nSignalBurnt: BigInt!
+  # Amount of voting signal tokens created
+  vSignal: BigInt!
+  # Total Signal amount for the subgraph
+  signal: [SubgraphDeployment]! @derivedFrom(field: "signalAmount")
+  # GRT withdrawn by curator for a deprecated subgraph
+  withdrawnGRT: BigInt!
   # List of billing entries associated with the Subgraph
   billing: [BillingEntry!]! @derivedFrom(field: "subgraph")
   # Metadata associated with the Subgraph
@@ -93,10 +103,10 @@ type SubgraphDeployment {
   id: ID!
   # Staked tokens for the deployment
   stakedTokens: BigInt!
-  # Signal amount for the deployment
+  # Total Signal amount for the deployment
   signalAmount: BigInt!
   # Timestamp of deployment creation
-  createdAt: DateTime! # Updated to use a specific timestamp type
+  createdAt: DateTime!
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
