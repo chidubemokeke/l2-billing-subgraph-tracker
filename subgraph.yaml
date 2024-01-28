@@ -19,8 +19,6 @@ dataSources:
         - name: billing
           file: ./abis/billing.json
       eventHandlers:
-        - event: CollectorUpdated(indexed address,boolean)
-          handler: handleCollectorUpdated
         - event: TokensAdded(indexed address,uint256)
           handler: handleTokensAdded
         - event: TokensPulled(indexed address,uint256)
@@ -45,24 +43,31 @@ dataSources:
         - Subgraph
         - Account
       abis:
-        - name: GNS
+        - name: L2GNS
           file: ./abis/GNS.json
       eventHandlers:
         - event: CuratorBalanceReceived(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleCuratorBalanceReceived
-        - event: CuratorBalanceReturnedToBeneficiary(uint256,indexed address,uint256)
+        - event: CuratorBalanceReturnedToBeneficiary(indexed uint256,indexed address,uint256)
           handler: handleCuratorBalanceReturnedToBeneficiary
-        - event: GRTWithdrawn(uint256,indexed address,uint256,uint256)
+        - event: GRTWithdrawn(indexed uint256,indexed address,uint256,uint256)
           handler: handleGRTWithdrawn
-        - event: ContractSynced(bytes32)
-        - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
-          handler: handleSubgraphPublished
-        - event: SubgraphReceivedFromL1(uint256,indexed uint256,indexed address,uint256)
-          handler: handleSubgraphReceivedFromL1
-        - event: SubgraphUpgraded(uint256,uint256,uint256,bytes32)
-          handler: handleSubgraphUpgraded
+        - event: SubgraphL2TransferFinalized(indexed uint256)
+          handler: handleSubgraphL2TransferFinalized
+        - event: SignalMinted(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleSignalMinted
+        - event: SignalBurned(indexed uint256,indexed address,uint256,uint256)
+          handler: handleSignalBurned
+        - event: SubgraphNFTUpdated(address)
+        - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
+          handler: handleSubgraphMetadataUpdated
         - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
           handler: handleSubgraphVersionUpdated
+        - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
+          handler: handleSubgraphPublished
+        - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
+          handler: handleSubgraphUpgraded
+        - event: SubgraphDepracated(indexed uint256,indexed address,uint256,uint256)
 templates:
   - kind: file/ipfs
     name: IpfsMetadata
@@ -75,3 +80,4 @@ templates:
       abis:
         - name: GNS
           file: ./abis/GNS.json
+      eventHandlers: handleSubgraphMetadataUpdated
