@@ -65,12 +65,13 @@ dataSources:
         - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
           handler: handleSubgraphUpgraded
 templates:
-  - kind: file/ipfs
-    name: IpfsMetadata
+  - name: SubgraphMetadata
+    kind: file/ipfs
     mapping:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/l2gns.ts
+      handler: handleMetadata
       entities:
         - SubgraphMetadata
       abis:

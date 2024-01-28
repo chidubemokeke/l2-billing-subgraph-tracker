@@ -2,12 +2,12 @@
 
 import { DataSourceTemplate, DataSourceContext } from "@graphprotocol/graph-ts";
 
-export class IpfsMetadata extends DataSourceTemplate {
+export class SubgraphMetadata extends DataSourceTemplate {
   static create(cid: string): void {
-    DataSourceTemplate.create("IpfsMetadata", [cid]);
+    DataSourceTemplate.create("SubgraphMetadata", [cid]);
   }
 
   static createWithContext(cid: string, context: DataSourceContext): void {
-    DataSourceTemplate.createWithContext("IpfsMetadata", [cid], context);
+    DataSourceTemplate.createWithContext("SubgraphMetadata", [cid], context);
   }
 }

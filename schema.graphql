@@ -35,7 +35,7 @@ type Subgraph @entity {
   # Amount of voting signal tokens created
   vSignal: BigInt!
   # Total Signal amount for the subgraph
-  signalAmount: [SubgraphDeployment!]! @derivedFrom(field: "signal") # Derived from SubgraphDeployment
+  signalAmount: [SubgraphDeployment!]! @derivedFrom(field: "signal")
   # GRT withdrawn by curator for a deprecated subgraph
   withdrawnGRT: BigInt!
   # List of billing entries associated with the Subgraph
