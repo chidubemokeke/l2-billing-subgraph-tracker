@@ -1,5 +1,5 @@
 import { json, ipfs, Bytes, JSONValueKind } from "@graphprotocol/graph-ts";
-import { L2SubgraphMetadata } from "../../generated/schema";
+import { SubgraphMetadata } from "../../generated/schema";
 import { SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent } from "../../generated/GNS/GNS";
 import { jsonToString } from "../helpers/utils-json";
 import { arbitrumOneSubgraph } from "../helpers/utils";
@@ -47,9 +47,9 @@ export function extractIpfsHashFromEventData(
  * @returns Updated SubgraphMetadata entity
  */
 export function fetchSubgraphMetadata(
-  subgraphMetadata: L2SubgraphMetadata,
+  subgraphMetadata: SubgraphMetadata,
   ipfsHash: string
-): L2SubgraphMetadata {
+): SubgraphMetadata {
   // Fetch the metadata content from IPFS based on the provided hash
   let metadata = ipfs.cat(ipfsHash);
 
@@ -62,7 +62,7 @@ export function fetchSubgraphMetadata(
 
       // Update the SubgraphMetadata fields based on the fetched IPFS data
       subgraphMetadata.description = jsonToString(data.get("description"));
-      subgraphMetadata.displayName = jsonToString(data.get("displayName"));
+      subgraphMetadata.name = jsonToString(data.get("name"));
       subgraphMetadata.codeRepository = jsonToString(
         data.get("codeRepository")
       );

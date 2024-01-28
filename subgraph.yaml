@@ -29,11 +29,11 @@ dataSources:
           handler: HandleTokensRescued
       file: ./src/billing.ts
   - kind: ethereum
-    name: GNS
+    name: L2GNS
     network: arbitrum-one
     source:
       address: "0x5cBDB6cfB91d435c5899Fc05741e7D371fd71667"
-      abi: GNS
+      abi: L2GNS
       startBlock: 113533076
     mapping:
       kind: ethereum/events
@@ -44,7 +44,7 @@ dataSources:
         - Account
       abis:
         - name: L2GNS
-          file: ./abis/GNS.json
+          file: ./abis/L2GNS.json
       eventHandlers:
         - event: CuratorBalanceReceived(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleCuratorBalanceReceived
@@ -54,10 +54,6 @@ dataSources:
           handler: handleGRTWithdrawn
         - event: SubgraphL2TransferFinalized(indexed uint256)
           handler: handleSubgraphL2TransferFinalized
-        - event: SignalMinted(indexed uint256,indexed address,indexed address,uint256)
-          handler: handleSignalMinted
-        - event: SignalBurned(indexed uint256,indexed address,uint256,uint256)
-          handler: handleSignalBurned
         - event: SubgraphNFTUpdated(address)
           handler: handleSubgraphNFTUpdated
         - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
@@ -68,7 +64,6 @@ dataSources:
           handler: handleSubgraphPublished
         - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
           handler: handleSubgraphUpgraded
-        - event: SubgraphDepracated(indexed uint256,indexed address,uint256,uint256)
 templates:
   - kind: file/ipfs
     name: IpfsMetadata
@@ -79,6 +74,6 @@ templates:
       entities:
         - SubgraphMetadata
       abis:
-        - name: GNS
-          file: ./abis/GNS.json
+        - name: L2GNS
+          file: ./abis/L2GNS.json
       eventHandlers: handleSubgraphMetadataUpdated

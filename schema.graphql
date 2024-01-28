@@ -15,7 +15,7 @@ type BillingEntry @entity {
   # Field for referencing an Account
   account: Account!
   # Deployment associated with billings
-  billings: SubgraphDeployment!
+  deployments: SubgraphDeployment!
 }
 
 # Represents a Subgraph entity
@@ -35,7 +35,7 @@ type Subgraph @entity {
   # Amount of voting signal tokens created
   vSignal: BigInt!
   # Total Signal amount for the subgraph
-  signal: [SubgraphDeployment]! @derivedFrom(field: "signalAmount")
+  signalAmount: [SubgraphDeployment!]! @derivedFrom(field: "signal") # Derived from SubgraphDeployment
   # GRT withdrawn by curator for a deprecated subgraph
   withdrawnGRT: BigInt!
   # List of billing entries associated with the Subgraph
@@ -84,7 +84,7 @@ type SubgraphMetadata
 }
 
 # Represents a version of a Subgraph
-type SubgraphVersion {
+type SubgraphVersion @entity {
   # Unique identifier for the SubgraphVersion
   id: ID!
   # Label for the version
@@ -98,19 +98,19 @@ type SubgraphVersion {
 }
 
 # Represents a deployment of a Subgraph version
-type SubgraphDeployment {
+type SubgraphDeployment @entity {
   # Unique identifier for the deployment
   id: ID!
   # Staked tokens for the deployment
   stakedTokens: BigInt!
   # Total Signal amount for the deployment
-  signalAmount: BigInt!
+  signal: Subgraph!
   # Timestamp of deployment creation
-  createdAt: DateTime!
+  createdAt: BigInt!
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
   deployments: SubgraphVersion!
   # List of billing entries associated with the deployment
-  billing: [BillingEntry!]! @derivedFrom(field: "deploymentList")
+  billing: [BillingEntry!]! @derivedFrom(field: "deployments")
 }
