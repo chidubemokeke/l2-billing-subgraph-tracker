@@ -130,8 +130,8 @@ export class BillingEntry extends Entity {
     this.set("account", Value.fromString(value));
   }
 
-  get deployments(): string {
-    let value = this.get("deployments");
+  get deployment(): string {
+    let value = this.get("deployment");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -139,8 +139,8 @@ export class BillingEntry extends Entity {
     }
   }
 
-  set deployments(value: string) {
-    this.set("deployments", Value.fromString(value));
+  set deployment(value: string) {
+    this.set("deployment", Value.fromString(value));
   }
 }
 
@@ -261,13 +261,17 @@ export class Subgraph extends Entity {
     this.set("vSignal", Value.fromBigInt(value));
   }
 
-  get signalAmount(): Array<string> {
+  get signalAmount(): BigInt {
     let value = this.get("signalAmount");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toStringArray();
+      return value.toBigInt();
     }
+  }
+
+  set signalAmount(value: BigInt) {
+    this.set("signalAmount", Value.fromBigInt(value));
   }
 
   get withdrawnGRT(): BigInt {
@@ -354,8 +358,8 @@ export class Account extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get createdAt(): BigInt {
-    let value = this.get("createdAt");
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -363,8 +367,8 @@ export class Account extends Entity {
     }
   }
 
-  set createdAt(value: BigInt) {
-    this.set("createdAt", Value.fromBigInt(value));
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 
   get address(): Bytes {
@@ -634,8 +638,8 @@ export class SubgraphVersion extends Entity {
     this.set("currentVersionId", Value.fromBytes(value));
   }
 
-  get version(): string {
-    let value = this.get("version");
+  get subgraph(): string {
+    let value = this.get("subgraph");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -643,12 +647,12 @@ export class SubgraphVersion extends Entity {
     }
   }
 
-  set version(value: string) {
-    this.set("version", Value.fromString(value));
+  set subgraph(value: string) {
+    this.set("subgraph", Value.fromString(value));
   }
 
-  get deployments(): Array<string> {
-    let value = this.get("deployments");
+  get deployment(): Array<string | null> {
+    let value = this.get("deployment");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -713,17 +717,17 @@ export class SubgraphDeployment extends Entity {
     this.set("stakedTokens", Value.fromBigInt(value));
   }
 
-  get signal(): string {
-    let value = this.get("signal");
+  get signalAmount(): BigInt {
+    let value = this.get("signalAmount");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBigInt();
     }
   }
 
-  set signal(value: string) {
-    this.set("signal", Value.fromString(value));
+  set signalAmount(value: BigInt) {
+    this.set("signalAmount", Value.fromBigInt(value));
   }
 
   get createdAt(): BigInt {
@@ -752,8 +756,8 @@ export class SubgraphDeployment extends Entity {
     this.set("blocknumber", Value.fromBigInt(value));
   }
 
-  get deployments(): string {
-    let value = this.get("deployments");
+  get version(): string {
+    let value = this.get("version");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -761,8 +765,21 @@ export class SubgraphDeployment extends Entity {
     }
   }
 
-  set deployments(value: string) {
-    this.set("deployments", Value.fromString(value));
+  set version(value: string) {
+    this.set("version", Value.fromString(value));
+  }
+
+  get subgraph(): string {
+    let value = this.get("subgraph");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set subgraph(value: string) {
+    this.set("subgraph", Value.fromString(value));
   }
 
   get billing(): Array<string> {

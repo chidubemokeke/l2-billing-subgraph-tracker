@@ -15,7 +15,7 @@ type BillingEntry @entity {
   # Field for referencing an Account
   account: Account!
   # Deployment associated with billings
-  deployments: SubgraphDeployment!
+  deployment: SubgraphDeployment!
 }
 
 # Represents a Subgraph entity
@@ -35,7 +35,7 @@ type Subgraph @entity {
   # Amount of voting signal tokens created
   vSignal: BigInt!
   # Total Signal amount for the subgraph
-  signalAmount: [SubgraphDeployment!]! @derivedFrom(field: "signal")
+  signalAmount: BigInt!
   # GRT withdrawn by curator for a deprecated subgraph
   withdrawnGRT: BigInt!
   # List of billing entries associated with the Subgraph
@@ -43,7 +43,7 @@ type Subgraph @entity {
   # Metadata associated with the Subgraph
   metadata: SubgraphMetadata!
   # List of versions associated with the Subgraph
-  versions: [SubgraphVersion!]! @derivedFrom(field: "version")
+  versions: [SubgraphVersion!]! @derivedFrom(field: "subgraph")
 }
 
 # Represents an Account entity
@@ -51,7 +51,7 @@ type Account @entity {
   # Unique identifier for the Account
   id: ID!
   # Time the account was created
-  createdAt: BigInt!
+  timestamp: BigInt!
   # Owner's Ethereum address
   address: Bytes!
   # List of subgraphs associated with this account
@@ -91,10 +91,10 @@ type SubgraphVersion @entity {
   label: String!
   # Subgraph Deployment ID. The IPFS hash with Qm removed to fit into 32 bytes
   currentVersionId: Bytes!
-  # Versions associated with Subgraph
-  version: Subgraph!
+  # Version associated with Subgraph
+  subgraph: Subgraph!
   # List of deployments associated with the version
-  deployments: [SubgraphDeployment!]! @derivedFrom(field: "deployments")
+  deployment: [SubgraphDeployment]! @derivedFrom(field: "version")
 }
 
 # Represents a deployment of a Subgraph version
@@ -104,13 +104,15 @@ type SubgraphDeployment @entity {
   # Staked tokens for the deployment
   stakedTokens: BigInt!
   # Total Signal amount for the deployment
-  signal: Subgraph!
+  signalAmount: BigInt!
   # Timestamp of deployment creation
   createdAt: BigInt!
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
-  deployments: SubgraphVersion!
+  version: SubgraphVersion!
+  # Directly associating deployment with its Subgraph
+  subgraph: Subgraph!
   # List of billing entries associated with the deployment
-  billing: [BillingEntry!]! @derivedFrom(field: "deployments")
+  billing: [BillingEntry!]! @derivedFrom(field: "deployment")
 }
