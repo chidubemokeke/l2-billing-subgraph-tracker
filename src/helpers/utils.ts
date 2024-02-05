@@ -1,5 +1,5 @@
 //import { BigInt, Bytes } from "@graphprotocol/graph-ts";
-import {
+/*import {
   Account as AccountEntity,
   Subgraph as SubgraphEntity,
 } from "../../generated/schema";
@@ -24,3 +24,4 @@ export function arbitrumOneSubgraph(
   }
   return subgraph;
 }
+*/
