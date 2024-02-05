@@ -90,7 +90,7 @@ type SubgraphVersion @entity {
   # Label for the version
   label: String!
   # Subgraph Deployment ID. The IPFS hash with Qm removed to fit into 32 bytes
-  currentVersionId: Bytes!
+  currentVersionId: SubgraphDeployment!
   # Version associated with Subgraph
   subgraph: Subgraph!
   # List of deployments associated with the version
@@ -106,11 +106,11 @@ type SubgraphDeployment @entity {
   # Total Signal amount for the deployment
   signalAmount: BigInt!
   # Timestamp of deployment creation
-  createdAt: BigInt!
+  timestamp: BigInt!
   # Block of deployment creation
   blocknumber: BigInt!
   # Version associated with the deployment
-  version: SubgraphVersion!
+  version: [SubgraphVersion!]! @derivedFrom(field: "currentVersionId")
   # Directly associating deployment with its Subgraph
   subgraph: Subgraph!
   # List of billing entries associated with the deployment

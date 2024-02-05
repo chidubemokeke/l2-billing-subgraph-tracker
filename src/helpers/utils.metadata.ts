@@ -2,7 +2,7 @@ import { json, ipfs, Bytes, JSONValueKind } from "@graphprotocol/graph-ts";
 import { SubgraphMetadata } from "../../generated/schema";
 import { SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent } from "../../generated/GNS/GNS";
 import { jsonToString } from "../helpers/utils-json";
-import { arbitrumOneSubgraph } from "../helpers/utils";
+import { l2Subgraph } from "../helpers/utils";
 
 /**
  * Extracts the IPFS hash from the SubgraphMetadataUpdated event data

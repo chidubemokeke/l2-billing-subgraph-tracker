@@ -625,17 +625,17 @@ export class SubgraphVersion extends Entity {
     this.set("label", Value.fromString(value));
   }
 
-  get currentVersionId(): Bytes {
+  get currentVersionId(): string {
     let value = this.get("currentVersionId");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set currentVersionId(value: Bytes) {
-    this.set("currentVersionId", Value.fromBytes(value));
+  set currentVersionId(value: string) {
+    this.set("currentVersionId", Value.fromString(value));
   }
 
   get subgraph(): string {
@@ -730,8 +730,8 @@ export class SubgraphDeployment extends Entity {
     this.set("signalAmount", Value.fromBigInt(value));
   }
 
-  get createdAt(): BigInt {
-    let value = this.get("createdAt");
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -739,8 +739,8 @@ export class SubgraphDeployment extends Entity {
     }
   }
 
-  set createdAt(value: BigInt) {
-    this.set("createdAt", Value.fromBigInt(value));
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
   }
 
   get blocknumber(): BigInt {
@@ -756,17 +756,13 @@ export class SubgraphDeployment extends Entity {
     this.set("blocknumber", Value.fromBigInt(value));
   }
 
-  get version(): string {
+  get version(): Array<string> {
     let value = this.get("version");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toStringArray();
     }
-  }
-
-  set version(value: string) {
-    this.set("version", Value.fromString(value));
   }
 
   get subgraph(): string {
