@@ -3,20 +3,16 @@ import {
   SubgraphPublished as SubgraphPublishedEvent,
   SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent,
 } from "../generated/GNS/GNS";
-import { arbitrumOneSubgraph } from "./helpers/utils";
+import { l2Subgraph } from "./helpers/utils";
 import {
   fetchSubgraphMetadata,
   extractIpfsHashFromEventData,
 } from "./helpers/utils.metadata";
-import {
-  L2SubgraphMetadata,
-  SubgraphDeployment,
-  Transaction,
-} from "../generated/schema";
+import { SubgraphMetadata, SubgraphDeployment } from "../generated/schema";
 
 // Handle SubgraphPublished event
 export function handleSubgraphPublished(event: SubgraphPublishedEvent): void {
-  let subgraph = arbitrumOneSubgraph(event.params.subgraphDeploymentID.toHex());
+  let subgraph = l2Subgraph(event.params.subgraphDeploymentID.toHex());
   subgraph.previousBalance = event.params.reserveRatio;
   subgraph.previousVersionHash = event.params.subgraphID;
   subgraph.currentVersionHash = event.params.subgraphDeploymentID;

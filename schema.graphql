@@ -1,21 +1,15 @@
-# Represents a billing entry associated with a Subgraph deployment or an Account
-type BillingEntry @entity {
-  # Unique identifier for the billing entry
+# Represents an Account entity
+type Account @entity {
+  # Unique identifier for the Account
   id: ID!
-  # Current balance of tokens for the Subgraph or Account
-  balance: BigInt!
-  # Tokens received
-  tokensIn: BigInt!
-  # Query fees withdrawn
-  withdrawnQueryFees: BigInt!
-  # Timestamp of the billing entry
+  # Time the account was created
   timestamp: BigInt!
-  # Field for referencing a Subgraph
-  subgraph: Subgraph!
-  # Field for referencing an Account
-  account: Account!
-  # Deployment associated with billings
-  deployment: SubgraphDeployment!
+  # Owner's Ethereum address
+  address: Bytes!
+  # List of subgraphs associated with this account
+  subgraphs: [Subgraph!]! @derivedFrom(field: "owner")
+  # List of billing entries associated with the Account
+  billing: [BillingEntry!]! @derivedFrom(field: "account")
 }
 
 # Represents a Subgraph entity
@@ -46,20 +40,6 @@ type Subgraph @entity {
   versions: [SubgraphVersion!]! @derivedFrom(field: "subgraph")
 }
 
-# Represents an Account entity
-type Account @entity {
-  # Unique identifier for the Account
-  id: ID!
-  # Time the account was created
-  timestamp: BigInt!
-  # Owner's Ethereum address
-  address: Bytes!
-  # List of subgraphs associated with this account
-  subgraphs: [Subgraph!]! @derivedFrom(field: "owner")
-  # List of billing entries associated with the Account
-  billing: [BillingEntry!]! @derivedFrom(field: "account")
-}
-
 # Represents metadata associated with a Subgraph
 type SubgraphMetadata
   @entity(immutable: true) { # Updated type name
@@ -81,6 +61,26 @@ type SubgraphMetadata
   codeRepository: String
   # Project's website
   website: String
+}
+
+# Represents a billing entry associated with a Subgraph deployment or an Account
+type BillingEntry @entity {
+  # Unique identifier for the billing entry
+  id: ID!
+  # Current balance of tokens for the Subgraph or Account
+  balance: BigInt!
+  # Tokens received
+  tokensIn: BigInt!
+  # Query fees withdrawn
+  withdrawnQueryFees: BigInt!
+  # Timestamp of the billing entry
+  timestamp: BigInt!
+  # Field for referencing a Subgraph
+  subgraph: Subgraph!
+  # Field for referencing an Account
+  account: Account!
+  # Deployment associated with billings
+  deployment: SubgraphDeployment!
 }
 
 # Represents a version of a Subgraph

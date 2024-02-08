@@ -1,31 +1,17 @@
-import { Bytes } from "@graphprotocol/graph-ts";
+
 import {
-  Account as CuratorEntity,
+  Account as AccountEntity,
   Subgraph as SubgraphEntity,
   SubgraphDeployment as SubgraphDeploymentEntity,
 } from "../../generated/schema";
 
-export function createOrLoadAccount(address: Bytes): CuratorEntity {
-  let accountId = address.toHex();
-  let account = CuratorEntity.load(accountId);
-  if (!account) {
-    account = new CuratorEntity(accountId);
-    account.address = address;
-    account.timestamp = account.timestamp;
-    account.save();
-  }
-  return account;
-}
+
 
 // Helper function to fetch or create a Subgraph entity published to L2.
-export function l2Subgraph(
-  subgraphId: string,
-  ownerAddress: Bytes
-): SubgraphEntity {
+export function l2Subgraph(subgraphId: string): SubgraphEntity {
   let subgraph = SubgraphEntity.load(subgraphId);
   if (!subgraph) {
     subgraph = new SubgraphEntity(subgraphId);
-    subgraph.owner = ownerAddress.toHexString();
     subgraph.save();
   }
   return subgraph;
@@ -40,10 +26,30 @@ export function newDeployment(
   if (!deployment) {
     deployment = new SubgraphDeploymentEntity(deploymentId);
     deployment.subgraph = subgraph.id;
+    deployment.blocknumber = deployment.blocknumber;
+    deployment.timestamp = deployment.timestamp;
+    deployment.stakedTokens = deployment.stakedTokens;
+    deployment.signalAmount = deployment.signalAmount;
+
     deployment.save();
   }
   return deployment;
 }
+
+// Fetches or creates SubgraphMetadata from IPFS and ensures the entity is updated.
+/*export function ensureSubgraphMetadata(metadataId: string): SubgraphMetadata {
+  let metadata = SubgraphMetadata.load(metadataId);
+  if (metadata == null) {
+    metadata = new SubgraphMetadata(metadataId);
+    // Here, you'd fetch and populate metadata from IPFS.
+    // For now, we'll use placeholders.
+    metadata.name = "Placeholder Name"; // Replace with actual data from IPFS.
+    metadata.description = "Placeholder Description"; // Replace with actual data from IPFS.
+    // Populate other fields as necessary.
+    metadata.save();
+  }
+  return metadata;
+}*/
 
 /*// Helper functions to create or load an Account
 export function createOrLoadAccount(id: string): AccountEntity {

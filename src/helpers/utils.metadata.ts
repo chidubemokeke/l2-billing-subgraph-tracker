@@ -9,6 +9,7 @@ import { l2Subgraph } from "../helpers/utils";
  * @param event - The SubgraphMetadataUpdated event
  * @returns IPFS hash as a string or null if not found
  */
+
 export function extractIpfsHashFromEventData(
   event: SubgraphMetadataUpdatedEvent
 ): string | null {
@@ -76,7 +77,7 @@ export function fetchSubgraphMetadata(
 
         for (let i = 0; i < categoriesArray.length; i++) {
           let categoryId = jsonToString(categoriesArray[i]);
-          arbitrumOneSubgraph(categoryId); // Process the category using a helper function
+          l2Subgraph(categoryId); // Process the category using a helper function
         }
       }
 
