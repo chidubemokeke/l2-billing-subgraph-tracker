@@ -26,14 +26,14 @@ dataSources:
         - event: TokensRemoved(indexed address,indexed address,uint256)
           handler: handleTokensRemoved
         - event: TokensRescued(indexed address,indexed address,uint256)
-          handler: HandleTokensRescued
+          handler: handleTokensRescued
       file: ./src/billing.ts
   - kind: ethereum
-    name: L2GNS
+    name: gns
     network: arbitrum-one
     source:
       address: "0x5cBDB6cfB91d435c5899Fc05741e7D371fd71667"
-      abi: L2GNS
+      abi: l2gns
       startBlock: 113533076
     mapping:
       kind: ethereum/events
@@ -43,8 +43,8 @@ dataSources:
         - Subgraph
         - Account
       abis:
-        - name: L2GNS
-          file: ./abis/L2GNS.json
+        - name: l2gns
+          file: ./abis/l2gns.json
       eventHandlers:
         - event: ContractSynced(indexed bytes32,address)
           handler: handleContractSynced
@@ -78,14 +78,15 @@ dataSources:
           handler: handleSubgraphMetadataUpdated
         - event: SubgraphNFTUpdated(address)
           handler: handleSubgraphNFTUpdated
-        - event: SubgraphPublished(indexed uint256,bytes32,uint32)
+        - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
           handler: handleSubgraphPublished
         - event: SubgraphReceivedFromL1(indexed uint256,indexed uint256,indexed address,uint256)
           handler: handleSubgraphReceivedFromL1
-        - event: SubgraphUpgraded(indexed uint256,uint256,uint256,bytes32)
+        - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
           handler: handleSubgraphUpgraded
-        - event: SubgraphVersionUpdated(indexed uint256,bytes32,bytes32)
+        - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
           handler: handleSubgraphVersionUpdated
+          file: ./src/l2gns.ts
 templates:
   - name: SubgraphMetadata
     kind: file/ipfs

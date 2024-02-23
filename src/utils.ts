@@ -2,12 +2,12 @@ import { BigInt, log } from "@graphprotocol/graph-ts";
 import {
   SubgraphPublished as SubgraphPublishedEvent,
   SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent,
-} from "../generated/GNS/GNS";
-import { l2Subgraph } from "./helpers/utils";
+} from "./helpers/";
+import { l2Subgraph } from "./helpers/subgraphHelpers";
 import {
   fetchSubgraphMetadata,
   extractIpfsHashFromEventData,
-} from "./helpers/utils.metadata";
+} from "../helpers/utils.metadata";
 import { SubgraphMetadata, SubgraphDeployment } from "../generated/schema";
 
 // Handle SubgraphPublished event

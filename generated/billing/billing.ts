@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class CollectorUpdated extends ethereum.Event {
@@ -256,7 +256,7 @@ export class billing extends ethereum.SmartContract {
 
   isCollector(param0: Address): boolean {
     let result = super.call("isCollector", "isCollector(address):(bool)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
 
     return result[0].toBoolean();
@@ -264,7 +264,7 @@ export class billing extends ethereum.SmartContract {
 
   try_isCollector(param0: Address): ethereum.CallResult<boolean> {
     let result = super.tryCall("isCollector", "isCollector(address):(bool)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -277,7 +277,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.call(
       "l1BillingConnector",
       "l1BillingConnector():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -287,7 +287,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.tryCall(
       "l1BillingConnector",
       "l1BillingConnector():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -306,7 +306,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.tryCall(
       "l2TokenGateway",
       "l2TokenGateway():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -319,7 +319,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.call(
       "pendingGovernor",
       "pendingGovernor():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -329,7 +329,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.tryCall(
       "pendingGovernor",
       "pendingGovernor():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -340,7 +340,7 @@ export class billing extends ethereum.SmartContract {
 
   userBalances(param0: Address): BigInt {
     let result = super.call("userBalances", "userBalances(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
 
     return result[0].toBigInt();
@@ -350,7 +350,7 @@ export class billing extends ethereum.SmartContract {
     let result = super.tryCall(
       "userBalances",
       "userBalances(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();

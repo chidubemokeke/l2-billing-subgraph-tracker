@@ -3,9 +3,11 @@ type Account @entity {
   # Unique identifier for the Account
   id: ID!
   # Time the account was created
-  timestamp: BigInt!
+  timestamp: Int!
   # Owner's Ethereum address
   address: Bytes!
+  # Graph token balance
+  balance: BigInt!
   # List of subgraphs associated with this account
   subgraphs: [Subgraph!]! @derivedFrom(field: "owner")
   # List of billing entries associated with the Account
@@ -18,8 +20,12 @@ type Subgraph @entity {
   id: ID!
   # Account entity associated with this subgraph
   owner: Account!
-  # Token ID
-  tokenID: BigInt!
+  # The actual ID of the subgraph on the contracts subgraph NFT implementation. BigInt represented as a String
+  nftID: String
+  # Creation timestamp"
+  createdAt: Int!
+  # Whether the subgraph is active or deprecated"
+  active: Boolean!
   # Amount of normalized signal tokens created
   nSignal: BigInt!
   # Amount of normalized signal tokens transferred
@@ -32,6 +38,8 @@ type Subgraph @entity {
   signalAmount: BigInt!
   # GRT withdrawn by curator for a deprecated subgraph
   withdrawnGRT: BigInt!
+  # Metadata from IPFS linked in GNS "Subgraph metadata"
+  metadataHash: Bytes
   # List of billing entries associated with the Subgraph
   billing: [BillingEntry!]! @derivedFrom(field: "subgraph")
   # Metadata associated with the Subgraph
@@ -45,12 +53,8 @@ type SubgraphMetadata
   @entity(immutable: true) { # Updated type name
   # Metadata from IPFS linked in GNS
   id: ID!
-  # The name of the subgraph.
-  name: String!
-  # Subgraph metadata IPFS hash
-  ipfsMetadataHash: Bytes!
-  # Subgraph URI
-  subgraphUri: Bytes!
+  # Subgraph that reference this metadata. For compatibility purposes. For the full list use subgraphs"
+  subgraph: Subgraph @derivedFrom(field: "metadata")
   # Short description of the subgraph
   description: String
   # Image in string format
@@ -61,6 +65,10 @@ type SubgraphMetadata
   codeRepository: String
   # Project's website
   website: String
+  # The display name of the subgraph.
+  name: String
+  # Categories that the subgraph belongs to
+  categories: [String!]
 }
 
 # Represents a billing entry associated with a Subgraph deployment or an Account
@@ -85,16 +93,18 @@ type BillingEntry @entity {
 
 # Represents a version of a Subgraph
 type SubgraphVersion @entity {
-  # Unique identifier for the SubgraphVersion
+  # Concatenation of subgraph, subgraph deployment, and version ID
   id: ID!
-  # Label for the version
-  label: String!
   # Subgraph Deployment ID. The IPFS hash with Qm removed to fit into 32 bytes
-  currentVersionId: SubgraphDeployment!
-  # Version associated with Subgraph
+  currentVersionId: Bytes!
+  # Subgraph of this version
   subgraph: Subgraph!
-  # List of deployments associated with the version
-  deployment: [SubgraphDeployment]! @derivedFrom(field: "version")
+  # Subgraph deployment of this version
+  subgraphDeployment: SubgraphDeployment!
+  # Version number
+  version: Int!
+  # Creation timestamp"
+  createdAt: Int!
 }
 
 # Represents a deployment of a Subgraph version
@@ -109,8 +119,8 @@ type SubgraphDeployment @entity {
   timestamp: BigInt!
   # Block of deployment creation
   blocknumber: BigInt!
-  # Version associated with the deployment
-  version: [SubgraphVersion!]! @derivedFrom(field: "currentVersionId")
+  # The versions this subgraph deployment relates to"
+  versions: [SubgraphVersion!]! @derivedFrom(field: "subgraphDeployment")
   # Directly associating deployment with its Subgraph
   subgraph: Subgraph!
   # List of billing entries associated with the deployment

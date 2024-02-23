@@ -1,8 +1,8 @@
 import { json, ipfs, Bytes, JSONValueKind } from "@graphprotocol/graph-ts";
 import { SubgraphMetadata } from "../../generated/schema";
-import { SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent } from "../../generated/GNS/GNS";
-import { jsonToString } from "../helpers/utils-json";
-import { l2Subgraph } from "../helpers/utils";
+import { SubgraphMetadataUpdated as SubgraphMetadataUpdatedEvent } from "../../generated/gns/l2gns";
+import { jsonToString } from "./jsonValue";
+import { l2Subgraph } from "./subgraphs";
 
 /**
  * Extracts the IPFS hash from the SubgraphMetadataUpdated event data

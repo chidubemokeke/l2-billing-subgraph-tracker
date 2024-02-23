@@ -8,8 +8,494 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
 } from "@graphprotocol/graph-ts";
+
+export class Account extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Account entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Account must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("Account", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): Account | null {
+    return changetype<Account | null>(store.get_in_block("Account", id));
+  }
+
+  static load(id: string): Account | null {
+    return changetype<Account | null>(store.get("Account", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get timestamp(): i32 {
+    let value = this.get("timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set timestamp(value: i32) {
+    this.set("timestamp", Value.fromI32(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get balance(): BigInt {
+    let value = this.get("balance");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
+  }
+
+  get subgraphs(): SubgraphLoader {
+    return new SubgraphLoader(
+      "Account",
+      this.get("id")!.toString(),
+      "subgraphs",
+    );
+  }
+
+  get billing(): BillingEntryLoader {
+    return new BillingEntryLoader(
+      "Account",
+      this.get("id")!.toString(),
+      "billing",
+    );
+  }
+}
+
+export class Subgraph extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Subgraph entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Subgraph must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("Subgraph", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): Subgraph | null {
+    return changetype<Subgraph | null>(store.get_in_block("Subgraph", id));
+  }
+
+  static load(id: string): Subgraph | null {
+    return changetype<Subgraph | null>(store.get("Subgraph", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get nftID(): string | null {
+    let value = this.get("nftID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set nftID(value: string | null) {
+    if (!value) {
+      this.unset("nftID");
+    } else {
+      this.set("nftID", Value.fromString(<string>value));
+    }
+  }
+
+  get createdAt(): i32 {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set createdAt(value: i32) {
+    this.set("createdAt", Value.fromI32(value));
+  }
+
+  get active(): boolean {
+    let value = this.get("active");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set active(value: boolean) {
+    this.set("active", Value.fromBoolean(value));
+  }
+
+  get nSignal(): BigInt {
+    let value = this.get("nSignal");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set nSignal(value: BigInt) {
+    this.set("nSignal", Value.fromBigInt(value));
+  }
+
+  get nSignalTransferred(): BigInt {
+    let value = this.get("nSignalTransferred");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set nSignalTransferred(value: BigInt) {
+    this.set("nSignalTransferred", Value.fromBigInt(value));
+  }
+
+  get nSignalBurnt(): BigInt {
+    let value = this.get("nSignalBurnt");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set nSignalBurnt(value: BigInt) {
+    this.set("nSignalBurnt", Value.fromBigInt(value));
+  }
+
+  get vSignal(): BigInt {
+    let value = this.get("vSignal");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set vSignal(value: BigInt) {
+    this.set("vSignal", Value.fromBigInt(value));
+  }
+
+  get signalAmount(): BigInt {
+    let value = this.get("signalAmount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set signalAmount(value: BigInt) {
+    this.set("signalAmount", Value.fromBigInt(value));
+  }
+
+  get withdrawnGRT(): BigInt {
+    let value = this.get("withdrawnGRT");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set withdrawnGRT(value: BigInt) {
+    this.set("withdrawnGRT", Value.fromBigInt(value));
+  }
+
+  get metadataHash(): Bytes | null {
+    let value = this.get("metadataHash");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set metadataHash(value: Bytes | null) {
+    if (!value) {
+      this.unset("metadataHash");
+    } else {
+      this.set("metadataHash", Value.fromBytes(<Bytes>value));
+    }
+  }
+
+  get billing(): BillingEntryLoader {
+    return new BillingEntryLoader(
+      "Subgraph",
+      this.get("id")!.toString(),
+      "billing",
+    );
+  }
+
+  get metadata(): string {
+    let value = this.get("metadata");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadata(value: string) {
+    this.set("metadata", Value.fromString(value));
+  }
+
+  get versions(): SubgraphVersionLoader {
+    return new SubgraphVersionLoader(
+      "Subgraph",
+      this.get("id")!.toString(),
+      "versions",
+    );
+  }
+}
+
+export class SubgraphMetadata extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SubgraphMetadata entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SubgraphMetadata must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SubgraphMetadata", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SubgraphMetadata | null {
+    return changetype<SubgraphMetadata | null>(
+      store.get_in_block("SubgraphMetadata", id),
+    );
+  }
+
+  static load(id: string): SubgraphMetadata | null {
+    return changetype<SubgraphMetadata | null>(
+      store.get("SubgraphMetadata", id),
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get subgraph(): SubgraphLoader {
+    return new SubgraphLoader(
+      "SubgraphMetadata",
+      this.get("id")!.toString(),
+      "subgraph",
+    );
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (!value) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(<string>value));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (!value) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(<string>value));
+    }
+  }
+
+  get nftImage(): string | null {
+    let value = this.get("nftImage");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set nftImage(value: string | null) {
+    if (!value) {
+      this.unset("nftImage");
+    } else {
+      this.set("nftImage", Value.fromString(<string>value));
+    }
+  }
+
+  get codeRepository(): string | null {
+    let value = this.get("codeRepository");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set codeRepository(value: string | null) {
+    if (!value) {
+      this.unset("codeRepository");
+    } else {
+      this.set("codeRepository", Value.fromString(<string>value));
+    }
+  }
+
+  get website(): string | null {
+    let value = this.get("website");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set website(value: string | null) {
+    if (!value) {
+      this.unset("website");
+    } else {
+      this.set("website", Value.fromString(<string>value));
+    }
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (!value) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(<string>value));
+    }
+  }
+
+  get categories(): Array<string> | null {
+    let value = this.get("categories");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set categories(value: Array<string> | null) {
+    if (!value) {
+      this.unset("categories");
+    } else {
+      this.set("categories", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+}
 
 export class BillingEntry extends Entity {
   constructor(id: string) {
@@ -23,7 +509,7 @@ export class BillingEntry extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type BillingEntry must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type BillingEntry must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("BillingEntry", id.toString(), this);
     }
@@ -31,7 +517,7 @@ export class BillingEntry extends Entity {
 
   static loadInBlock(id: string): BillingEntry | null {
     return changetype<BillingEntry | null>(
-      store.get_in_block("BillingEntry", id)
+      store.get_in_block("BillingEntry", id),
     );
   }
 
@@ -144,433 +630,6 @@ export class BillingEntry extends Entity {
   }
 }
 
-export class Subgraph extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Subgraph entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type Subgraph must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("Subgraph", id.toString(), this);
-    }
-  }
-
-  static loadInBlock(id: string): Subgraph | null {
-    return changetype<Subgraph | null>(store.get_in_block("Subgraph", id));
-  }
-
-  static load(id: string): Subgraph | null {
-    return changetype<Subgraph | null>(store.get("Subgraph", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get owner(): string {
-    let value = this.get("owner");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set owner(value: string) {
-    this.set("owner", Value.fromString(value));
-  }
-
-  get tokenID(): BigInt {
-    let value = this.get("tokenID");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set tokenID(value: BigInt) {
-    this.set("tokenID", Value.fromBigInt(value));
-  }
-
-  get nSignal(): BigInt {
-    let value = this.get("nSignal");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set nSignal(value: BigInt) {
-    this.set("nSignal", Value.fromBigInt(value));
-  }
-
-  get nSignalTransferred(): BigInt {
-    let value = this.get("nSignalTransferred");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set nSignalTransferred(value: BigInt) {
-    this.set("nSignalTransferred", Value.fromBigInt(value));
-  }
-
-  get nSignalBurnt(): BigInt {
-    let value = this.get("nSignalBurnt");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set nSignalBurnt(value: BigInt) {
-    this.set("nSignalBurnt", Value.fromBigInt(value));
-  }
-
-  get vSignal(): BigInt {
-    let value = this.get("vSignal");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set vSignal(value: BigInt) {
-    this.set("vSignal", Value.fromBigInt(value));
-  }
-
-  get signalAmount(): BigInt {
-    let value = this.get("signalAmount");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set signalAmount(value: BigInt) {
-    this.set("signalAmount", Value.fromBigInt(value));
-  }
-
-  get withdrawnGRT(): BigInt {
-    let value = this.get("withdrawnGRT");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set withdrawnGRT(value: BigInt) {
-    this.set("withdrawnGRT", Value.fromBigInt(value));
-  }
-
-  get billing(): Array<string> {
-    let value = this.get("billing");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  get metadata(): string {
-    let value = this.get("metadata");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set metadata(value: string) {
-    this.set("metadata", Value.fromString(value));
-  }
-
-  get versions(): Array<string> {
-    let value = this.get("versions");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
-  }
-}
-
-export class Account extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save Account entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type Account must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("Account", id.toString(), this);
-    }
-  }
-
-  static loadInBlock(id: string): Account | null {
-    return changetype<Account | null>(store.get_in_block("Account", id));
-  }
-
-  static load(id: string): Account | null {
-    return changetype<Account | null>(store.get("Account", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get timestamp(): BigInt {
-    let value = this.get("timestamp");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set timestamp(value: BigInt) {
-    this.set("timestamp", Value.fromBigInt(value));
-  }
-
-  get address(): Bytes {
-    let value = this.get("address");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set address(value: Bytes) {
-    this.set("address", Value.fromBytes(value));
-  }
-
-  get subgraphs(): Array<string> {
-    let value = this.get("subgraphs");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  get billing(): Array<string> {
-    let value = this.get("billing");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
-  }
-}
-
-export class SubgraphMetadata extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save SubgraphMetadata entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type SubgraphMetadata must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("SubgraphMetadata", id.toString(), this);
-    }
-  }
-
-  static loadInBlock(id: string): SubgraphMetadata | null {
-    return changetype<SubgraphMetadata | null>(
-      store.get_in_block("SubgraphMetadata", id)
-    );
-  }
-
-  static load(id: string): SubgraphMetadata | null {
-    return changetype<SubgraphMetadata | null>(
-      store.get("SubgraphMetadata", id)
-    );
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get name(): string {
-    let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set name(value: string) {
-    this.set("name", Value.fromString(value));
-  }
-
-  get ipfsMetadataHash(): Bytes {
-    let value = this.get("ipfsMetadataHash");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set ipfsMetadataHash(value: Bytes) {
-    this.set("ipfsMetadataHash", Value.fromBytes(value));
-  }
-
-  get subgraphUri(): Bytes {
-    let value = this.get("subgraphUri");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set subgraphUri(value: Bytes) {
-    this.set("subgraphUri", Value.fromBytes(value));
-  }
-
-  get description(): string | null {
-    let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set description(value: string | null) {
-    if (!value) {
-      this.unset("description");
-    } else {
-      this.set("description", Value.fromString(<string>value));
-    }
-  }
-
-  get image(): string | null {
-    let value = this.get("image");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set image(value: string | null) {
-    if (!value) {
-      this.unset("image");
-    } else {
-      this.set("image", Value.fromString(<string>value));
-    }
-  }
-
-  get nftImage(): string | null {
-    let value = this.get("nftImage");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set nftImage(value: string | null) {
-    if (!value) {
-      this.unset("nftImage");
-    } else {
-      this.set("nftImage", Value.fromString(<string>value));
-    }
-  }
-
-  get codeRepository(): string | null {
-    let value = this.get("codeRepository");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set codeRepository(value: string | null) {
-    if (!value) {
-      this.unset("codeRepository");
-    } else {
-      this.set("codeRepository", Value.fromString(<string>value));
-    }
-  }
-
-  get website(): string | null {
-    let value = this.get("website");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set website(value: string | null) {
-    if (!value) {
-      this.unset("website");
-    } else {
-      this.set("website", Value.fromString(<string>value));
-    }
-  }
-}
-
 export class SubgraphVersion extends Entity {
   constructor(id: string) {
     super();
@@ -583,7 +642,7 @@ export class SubgraphVersion extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type SubgraphVersion must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type SubgraphVersion must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("SubgraphVersion", id.toString(), this);
     }
@@ -591,7 +650,7 @@ export class SubgraphVersion extends Entity {
 
   static loadInBlock(id: string): SubgraphVersion | null {
     return changetype<SubgraphVersion | null>(
-      store.get_in_block("SubgraphVersion", id)
+      store.get_in_block("SubgraphVersion", id),
     );
   }
 
@@ -612,30 +671,17 @@ export class SubgraphVersion extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get label(): string {
-    let value = this.get("label");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toString();
-    }
-  }
-
-  set label(value: string) {
-    this.set("label", Value.fromString(value));
-  }
-
-  get currentVersionId(): string {
+  get currentVersionId(): Bytes {
     let value = this.get("currentVersionId");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toString();
+      return value.toBytes();
     }
   }
 
-  set currentVersionId(value: string) {
-    this.set("currentVersionId", Value.fromString(value));
+  set currentVersionId(value: Bytes) {
+    this.set("currentVersionId", Value.fromBytes(value));
   }
 
   get subgraph(): string {
@@ -651,13 +697,43 @@ export class SubgraphVersion extends Entity {
     this.set("subgraph", Value.fromString(value));
   }
 
-  get deployment(): Array<string | null> {
-    let value = this.get("deployment");
+  get subgraphDeployment(): string {
+    let value = this.get("subgraphDeployment");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toStringArray();
+      return value.toString();
     }
+  }
+
+  set subgraphDeployment(value: string) {
+    this.set("subgraphDeployment", Value.fromString(value));
+  }
+
+  get version(): i32 {
+    let value = this.get("version");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set version(value: i32) {
+    this.set("version", Value.fromI32(value));
+  }
+
+  get createdAt(): i32 {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set createdAt(value: i32) {
+    this.set("createdAt", Value.fromI32(value));
   }
 }
 
@@ -673,7 +749,7 @@ export class SubgraphDeployment extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type SubgraphDeployment must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type SubgraphDeployment must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("SubgraphDeployment", id.toString(), this);
     }
@@ -681,13 +757,13 @@ export class SubgraphDeployment extends Entity {
 
   static loadInBlock(id: string): SubgraphDeployment | null {
     return changetype<SubgraphDeployment | null>(
-      store.get_in_block("SubgraphDeployment", id)
+      store.get_in_block("SubgraphDeployment", id),
     );
   }
 
   static load(id: string): SubgraphDeployment | null {
     return changetype<SubgraphDeployment | null>(
-      store.get("SubgraphDeployment", id)
+      store.get("SubgraphDeployment", id),
     );
   }
 
@@ -756,13 +832,12 @@ export class SubgraphDeployment extends Entity {
     this.set("blocknumber", Value.fromBigInt(value));
   }
 
-  get version(): Array<string> {
-    let value = this.get("version");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
+  get versions(): SubgraphVersionLoader {
+    return new SubgraphVersionLoader(
+      "SubgraphDeployment",
+      this.get("id")!.toString(),
+      "versions",
+    );
   }
 
   get subgraph(): string {
@@ -778,12 +853,65 @@ export class SubgraphDeployment extends Entity {
     this.set("subgraph", Value.fromString(value));
   }
 
-  get billing(): Array<string> {
-    let value = this.get("billing");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
+  get billing(): BillingEntryLoader {
+    return new BillingEntryLoader(
+      "SubgraphDeployment",
+      this.get("id")!.toString(),
+      "billing",
+    );
+  }
+}
+
+export class SubgraphLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): Subgraph[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<Subgraph[]>(value);
+  }
+}
+
+export class BillingEntryLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): BillingEntry[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<BillingEntry[]>(value);
+  }
+}
+
+export class SubgraphVersionLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): SubgraphVersion[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<SubgraphVersion[]>(value);
   }
 }

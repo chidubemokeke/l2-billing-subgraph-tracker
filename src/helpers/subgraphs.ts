@@ -1,11 +1,7 @@
-
 import {
-  Account as AccountEntity,
   Subgraph as SubgraphEntity,
   SubgraphDeployment as SubgraphDeploymentEntity,
 } from "../../generated/schema";
-
-
 
 // Helper function to fetch or create a Subgraph entity published to L2.
 export function l2Subgraph(subgraphId: string): SubgraphEntity {
@@ -25,6 +21,7 @@ export function newDeployment(
   let deployment = SubgraphDeploymentEntity.load(deploymentId);
   if (!deployment) {
     deployment = new SubgraphDeploymentEntity(deploymentId);
+    ``;
     deployment.subgraph = subgraph.id;
     deployment.blocknumber = deployment.blocknumber;
     deployment.timestamp = deployment.timestamp;

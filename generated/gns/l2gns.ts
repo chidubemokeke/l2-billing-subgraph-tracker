@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class ContractSynced extends ethereum.Event {
@@ -514,7 +514,7 @@ export class SubgraphVersionUpdated__Params {
   }
 }
 
-export class L2GNS__getLegacySubgraphKeyResult {
+export class l2gns__getLegacySubgraphKeyResult {
   value0: Address;
   value1: BigInt;
 
@@ -539,7 +539,7 @@ export class L2GNS__getLegacySubgraphKeyResult {
   }
 }
 
-export class L2GNS__legacySubgraphDataResult {
+export class l2gns__legacySubgraphDataResult {
   value0: BigInt;
   value1: BigInt;
   value2: Bytes;
@@ -553,7 +553,7 @@ export class L2GNS__legacySubgraphDataResult {
     value2: Bytes,
     value3: BigInt,
     value4: boolean,
-    value5: BigInt
+    value5: BigInt,
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -599,7 +599,7 @@ export class L2GNS__legacySubgraphDataResult {
   }
 }
 
-export class L2GNS__legacySubgraphKeysResult {
+export class l2gns__legacySubgraphKeysResult {
   value0: Address;
   value1: BigInt;
 
@@ -624,7 +624,7 @@ export class L2GNS__legacySubgraphKeysResult {
   }
 }
 
-export class L2GNS__nSignalToTokensResult {
+export class l2gns__nSignalToTokensResult {
   value0: BigInt;
   value1: BigInt;
 
@@ -649,7 +649,7 @@ export class L2GNS__nSignalToTokensResult {
   }
 }
 
-export class L2GNS__subgraphL2TransferDataResult {
+export class l2gns__subgraphL2TransferDataResult {
   value0: BigInt;
   value1: boolean;
   value2: BigInt;
@@ -681,7 +681,7 @@ export class L2GNS__subgraphL2TransferDataResult {
   }
 }
 
-export class L2GNS__subgraphsResult {
+export class l2gns__subgraphsResult {
   value0: BigInt;
   value1: BigInt;
   value2: Bytes;
@@ -695,7 +695,7 @@ export class L2GNS__subgraphsResult {
     value2: Bytes,
     value3: BigInt,
     value4: boolean,
-    value5: BigInt
+    value5: BigInt,
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -741,7 +741,7 @@ export class L2GNS__subgraphsResult {
   }
 }
 
-export class L2GNS__tokensToNSignalResult {
+export class l2gns__tokensToNSignalResult {
   value0: BigInt;
   value1: BigInt;
   value2: BigInt;
@@ -773,16 +773,16 @@ export class L2GNS__tokensToNSignalResult {
   }
 }
 
-export class L2GNS extends ethereum.SmartContract {
-  static bind(address: Address): L2GNS {
-    return new L2GNS("L2GNS", address);
+export class l2gns extends ethereum.SmartContract {
+  static bind(address: Address): l2gns {
+    return new l2gns("l2gns", address);
   }
 
   SUBGRAPH_ID_ALIAS_OFFSET(): BigInt {
     let result = super.call(
       "SUBGRAPH_ID_ALIAS_OFFSET",
       "SUBGRAPH_ID_ALIAS_OFFSET():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -792,7 +792,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "SUBGRAPH_ID_ALIAS_OFFSET",
       "SUBGRAPH_ID_ALIAS_OFFSET():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -805,7 +805,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "__DEPRECATED_bondingCurve",
       "__DEPRECATED_bondingCurve():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -815,7 +815,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "__DEPRECATED_bondingCurve",
       "__DEPRECATED_bondingCurve():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -843,7 +843,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "counterpartGNSAddress",
       "counterpartGNSAddress():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -853,7 +853,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "counterpartGNSAddress",
       "counterpartGNSAddress():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -866,19 +866,19 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "getAliasedL2SubgraphID",
       "getAliasedL2SubgraphID(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_l1SubgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_l1SubgraphID)],
     );
 
     return result[0].toBigInt();
   }
 
   try_getAliasedL2SubgraphID(
-    _l1SubgraphID: BigInt
+    _l1SubgraphID: BigInt,
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getAliasedL2SubgraphID",
       "getAliasedL2SubgraphID(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_l1SubgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_l1SubgraphID)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -893,8 +893,8 @@ export class L2GNS extends ethereum.SmartContract {
       "getCuratorSignal(uint256,address):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromAddress(_curator)
-      ]
+        ethereum.Value.fromAddress(_curator),
+      ],
     );
 
     return result[0].toBigInt();
@@ -902,15 +902,15 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_getCuratorSignal(
     _subgraphID: BigInt,
-    _curator: Address
+    _curator: Address,
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getCuratorSignal",
       "getCuratorSignal(uint256,address):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromAddress(_curator)
-      ]
+        ethereum.Value.fromAddress(_curator),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -919,36 +919,36 @@ export class L2GNS extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getLegacySubgraphKey(_subgraphID: BigInt): L2GNS__getLegacySubgraphKeyResult {
+  getLegacySubgraphKey(_subgraphID: BigInt): l2gns__getLegacySubgraphKeyResult {
     let result = super.call(
       "getLegacySubgraphKey",
       "getLegacySubgraphKey(uint256):(address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
 
-    return new L2GNS__getLegacySubgraphKeyResult(
+    return new l2gns__getLegacySubgraphKeyResult(
       result[0].toAddress(),
-      result[1].toBigInt()
+      result[1].toBigInt(),
     );
   }
 
   try_getLegacySubgraphKey(
-    _subgraphID: BigInt
-  ): ethereum.CallResult<L2GNS__getLegacySubgraphKeyResult> {
+    _subgraphID: BigInt,
+  ): ethereum.CallResult<l2gns__getLegacySubgraphKeyResult> {
     let result = super.tryCall(
       "getLegacySubgraphKey",
       "getLegacySubgraphKey(uint256):(address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__getLegacySubgraphKeyResult(
+      new l2gns__getLegacySubgraphKeyResult(
         value[0].toAddress(),
-        value[1].toBigInt()
-      )
+        value[1].toBigInt(),
+      ),
     );
   }
 
@@ -956,7 +956,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "isLegacySubgraph",
       "isLegacySubgraph(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
 
     return result[0].toBoolean();
@@ -966,7 +966,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "isLegacySubgraph",
       "isLegacySubgraph(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -977,7 +977,7 @@ export class L2GNS extends ethereum.SmartContract {
 
   isPublished(_subgraphID: BigInt): boolean {
     let result = super.call("isPublished", "isPublished(uint256):(bool)", [
-      ethereum.Value.fromUnsignedBigInt(_subgraphID)
+      ethereum.Value.fromUnsignedBigInt(_subgraphID),
     ]);
 
     return result[0].toBoolean();
@@ -985,7 +985,7 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_isPublished(_subgraphID: BigInt): ethereum.CallResult<boolean> {
     let result = super.tryCall("isPublished", "isPublished(uint256):(bool)", [
-      ethereum.Value.fromUnsignedBigInt(_subgraphID)
+      ethereum.Value.fromUnsignedBigInt(_subgraphID),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -996,91 +996,91 @@ export class L2GNS extends ethereum.SmartContract {
 
   legacySubgraphData(
     param0: Address,
-    param1: BigInt
-  ): L2GNS__legacySubgraphDataResult {
+    param1: BigInt,
+  ): l2gns__legacySubgraphDataResult {
     let result = super.call(
       "legacySubgraphData",
       "legacySubgraphData(address,uint256):(uint256,uint256,bytes32,uint32,bool,uint256)",
       [
         ethereum.Value.fromAddress(param0),
-        ethereum.Value.fromUnsignedBigInt(param1)
-      ]
+        ethereum.Value.fromUnsignedBigInt(param1),
+      ],
     );
 
-    return new L2GNS__legacySubgraphDataResult(
+    return new l2gns__legacySubgraphDataResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
       result[2].toBytes(),
       result[3].toBigInt(),
       result[4].toBoolean(),
-      result[5].toBigInt()
+      result[5].toBigInt(),
     );
   }
 
   try_legacySubgraphData(
     param0: Address,
-    param1: BigInt
-  ): ethereum.CallResult<L2GNS__legacySubgraphDataResult> {
+    param1: BigInt,
+  ): ethereum.CallResult<l2gns__legacySubgraphDataResult> {
     let result = super.tryCall(
       "legacySubgraphData",
       "legacySubgraphData(address,uint256):(uint256,uint256,bytes32,uint32,bool,uint256)",
       [
         ethereum.Value.fromAddress(param0),
-        ethereum.Value.fromUnsignedBigInt(param1)
-      ]
+        ethereum.Value.fromUnsignedBigInt(param1),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__legacySubgraphDataResult(
+      new l2gns__legacySubgraphDataResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
         value[2].toBytes(),
         value[3].toBigInt(),
         value[4].toBoolean(),
-        value[5].toBigInt()
-      )
+        value[5].toBigInt(),
+      ),
     );
   }
 
-  legacySubgraphKeys(param0: BigInt): L2GNS__legacySubgraphKeysResult {
+  legacySubgraphKeys(param0: BigInt): l2gns__legacySubgraphKeysResult {
     let result = super.call(
       "legacySubgraphKeys",
       "legacySubgraphKeys(uint256):(address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
-    return new L2GNS__legacySubgraphKeysResult(
+    return new l2gns__legacySubgraphKeysResult(
       result[0].toAddress(),
-      result[1].toBigInt()
+      result[1].toBigInt(),
     );
   }
 
   try_legacySubgraphKeys(
-    param0: BigInt
-  ): ethereum.CallResult<L2GNS__legacySubgraphKeysResult> {
+    param0: BigInt,
+  ): ethereum.CallResult<l2gns__legacySubgraphKeysResult> {
     let result = super.tryCall(
       "legacySubgraphKeys",
       "legacySubgraphKeys(uint256):(address,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__legacySubgraphKeysResult(
+      new l2gns__legacySubgraphKeysResult(
         value[0].toAddress(),
-        value[1].toBigInt()
-      )
+        value[1].toBigInt(),
+      ),
     );
   }
 
   multicall(data: Array<Bytes>): Array<Bytes> {
     let result = super.call("multicall", "multicall(bytes[]):(bytes[])", [
-      ethereum.Value.fromBytesArray(data)
+      ethereum.Value.fromBytesArray(data),
     ]);
 
     return result[0].toBytesArray();
@@ -1088,7 +1088,7 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_multicall(data: Array<Bytes>): ethereum.CallResult<Array<Bytes>> {
     let result = super.tryCall("multicall", "multicall(bytes[]):(bytes[])", [
-      ethereum.Value.fromBytesArray(data)
+      ethereum.Value.fromBytesArray(data),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1099,41 +1099,44 @@ export class L2GNS extends ethereum.SmartContract {
 
   nSignalToTokens(
     _subgraphID: BigInt,
-    _nSignalIn: BigInt
-  ): L2GNS__nSignalToTokensResult {
+    _nSignalIn: BigInt,
+  ): l2gns__nSignalToTokensResult {
     let result = super.call(
       "nSignalToTokens",
       "nSignalToTokens(uint256,uint256):(uint256,uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_nSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_nSignalIn),
+      ],
     );
 
-    return new L2GNS__nSignalToTokensResult(
+    return new l2gns__nSignalToTokensResult(
       result[0].toBigInt(),
-      result[1].toBigInt()
+      result[1].toBigInt(),
     );
   }
 
   try_nSignalToTokens(
     _subgraphID: BigInt,
-    _nSignalIn: BigInt
-  ): ethereum.CallResult<L2GNS__nSignalToTokensResult> {
+    _nSignalIn: BigInt,
+  ): ethereum.CallResult<l2gns__nSignalToTokensResult> {
     let result = super.tryCall(
       "nSignalToTokens",
       "nSignalToTokens(uint256,uint256):(uint256,uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_nSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_nSignalIn),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__nSignalToTokensResult(value[0].toBigInt(), value[1].toBigInt())
+      new l2gns__nSignalToTokensResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+      ),
     );
   }
 
@@ -1143,8 +1146,8 @@ export class L2GNS extends ethereum.SmartContract {
       "nSignalToVSignal(uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_nSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_nSignalIn),
+      ],
     );
 
     return result[0].toBigInt();
@@ -1152,15 +1155,15 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_nSignalToVSignal(
     _subgraphID: BigInt,
-    _nSignalIn: BigInt
+    _nSignalIn: BigInt,
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "nSignalToVSignal",
       "nSignalToVSignal(uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_nSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_nSignalIn),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1173,7 +1176,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "nextAccountSeqID",
       "nextAccountSeqID(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
 
     return result[0].toBigInt();
@@ -1183,7 +1186,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "nextAccountSeqID",
       "nextAccountSeqID(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1194,7 +1197,7 @@ export class L2GNS extends ethereum.SmartContract {
 
   ownerOf(_tokenID: BigInt): Address {
     let result = super.call("ownerOf", "ownerOf(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(_tokenID)
+      ethereum.Value.fromUnsignedBigInt(_tokenID),
     ]);
 
     return result[0].toAddress();
@@ -1202,7 +1205,7 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_ownerOf(_tokenID: BigInt): ethereum.CallResult<Address> {
     let result = super.tryCall("ownerOf", "ownerOf(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(_tokenID)
+      ethereum.Value.fromUnsignedBigInt(_tokenID),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1215,7 +1218,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "ownerTaxPercentage",
       "ownerTaxPercentage():(uint32)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -1225,7 +1228,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "ownerTaxPercentage",
       "ownerTaxPercentage():(uint32)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1234,38 +1237,38 @@ export class L2GNS extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  subgraphL2TransferData(param0: BigInt): L2GNS__subgraphL2TransferDataResult {
+  subgraphL2TransferData(param0: BigInt): l2gns__subgraphL2TransferDataResult {
     let result = super.call(
       "subgraphL2TransferData",
       "subgraphL2TransferData(uint256):(uint256,bool,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
-    return new L2GNS__subgraphL2TransferDataResult(
+    return new l2gns__subgraphL2TransferDataResult(
       result[0].toBigInt(),
       result[1].toBoolean(),
-      result[2].toBigInt()
+      result[2].toBigInt(),
     );
   }
 
   try_subgraphL2TransferData(
-    param0: BigInt
-  ): ethereum.CallResult<L2GNS__subgraphL2TransferDataResult> {
+    param0: BigInt,
+  ): ethereum.CallResult<l2gns__subgraphL2TransferDataResult> {
     let result = super.tryCall(
       "subgraphL2TransferData",
       "subgraphL2TransferData(uint256):(uint256,bool,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__subgraphL2TransferDataResult(
+      new l2gns__subgraphL2TransferDataResult(
         value[0].toBigInt(),
         value[1].toBoolean(),
-        value[2].toBigInt()
-      )
+        value[2].toBigInt(),
+      ),
     );
   }
 
@@ -1288,7 +1291,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "subgraphSignal",
       "subgraphSignal(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
 
     return result[0].toBigInt();
@@ -1298,7 +1301,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "subgraphSignal",
       "subgraphSignal(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1311,7 +1314,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.call(
       "subgraphTokens",
       "subgraphTokens(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
 
     return result[0].toBigInt();
@@ -1321,7 +1324,7 @@ export class L2GNS extends ethereum.SmartContract {
     let result = super.tryCall(
       "subgraphTokens",
       "subgraphTokens(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_subgraphID)]
+      [ethereum.Value.fromUnsignedBigInt(_subgraphID)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1330,87 +1333,87 @@ export class L2GNS extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  subgraphs(param0: BigInt): L2GNS__subgraphsResult {
+  subgraphs(param0: BigInt): l2gns__subgraphsResult {
     let result = super.call(
       "subgraphs",
       "subgraphs(uint256):(uint256,uint256,bytes32,uint32,bool,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
-    return new L2GNS__subgraphsResult(
+    return new l2gns__subgraphsResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
       result[2].toBytes(),
       result[3].toBigInt(),
       result[4].toBoolean(),
-      result[5].toBigInt()
+      result[5].toBigInt(),
     );
   }
 
-  try_subgraphs(param0: BigInt): ethereum.CallResult<L2GNS__subgraphsResult> {
+  try_subgraphs(param0: BigInt): ethereum.CallResult<l2gns__subgraphsResult> {
     let result = super.tryCall(
       "subgraphs",
       "subgraphs(uint256):(uint256,uint256,bytes32,uint32,bool,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__subgraphsResult(
+      new l2gns__subgraphsResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
         value[2].toBytes(),
         value[3].toBigInt(),
         value[4].toBoolean(),
-        value[5].toBigInt()
-      )
+        value[5].toBigInt(),
+      ),
     );
   }
 
   tokensToNSignal(
     _subgraphID: BigInt,
-    _tokensIn: BigInt
-  ): L2GNS__tokensToNSignalResult {
+    _tokensIn: BigInt,
+  ): l2gns__tokensToNSignalResult {
     let result = super.call(
       "tokensToNSignal",
       "tokensToNSignal(uint256,uint256):(uint256,uint256,uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_tokensIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_tokensIn),
+      ],
     );
 
-    return new L2GNS__tokensToNSignalResult(
+    return new l2gns__tokensToNSignalResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
-      result[2].toBigInt()
+      result[2].toBigInt(),
     );
   }
 
   try_tokensToNSignal(
     _subgraphID: BigInt,
-    _tokensIn: BigInt
-  ): ethereum.CallResult<L2GNS__tokensToNSignalResult> {
+    _tokensIn: BigInt,
+  ): ethereum.CallResult<l2gns__tokensToNSignalResult> {
     let result = super.tryCall(
       "tokensToNSignal",
       "tokensToNSignal(uint256,uint256):(uint256,uint256,uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_tokensIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_tokensIn),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new L2GNS__tokensToNSignalResult(
+      new l2gns__tokensToNSignalResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
-        value[2].toBigInt()
-      )
+        value[2].toBigInt(),
+      ),
     );
   }
 
@@ -1420,8 +1423,8 @@ export class L2GNS extends ethereum.SmartContract {
       "vSignalToNSignal(uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_vSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_vSignalIn),
+      ],
     );
 
     return result[0].toBigInt();
@@ -1429,15 +1432,15 @@ export class L2GNS extends ethereum.SmartContract {
 
   try_vSignalToNSignal(
     _subgraphID: BigInt,
-    _vSignalIn: BigInt
+    _vSignalIn: BigInt,
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "vSignalToNSignal",
       "vSignalToNSignal(uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_subgraphID),
-        ethereum.Value.fromUnsignedBigInt(_vSignalIn)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_vSignalIn),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
