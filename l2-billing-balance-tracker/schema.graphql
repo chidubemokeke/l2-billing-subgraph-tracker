@@ -1,0 +1,195 @@
+type ContractSynced @entity(immutable: true) {
+  id: Bytes!
+  nameHash: Bytes! # bytes32
+  contractAddress: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CounterpartGNSAddressUpdated @entity(immutable: true) {
+  id: Bytes!
+  _counterpart: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CuratorBalanceReceived @entity(immutable: true) {
+  id: Bytes!
+  _l1SubgraphId: BigInt! # uint256
+  _l2SubgraphID: BigInt! # uint256
+  _l2Curator: Bytes! # address
+  _tokens: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CuratorBalanceReturnedToBeneficiary @entity(immutable: true) {
+  id: Bytes!
+  _l1SubgraphID: BigInt! # uint256
+  _l2Curator: Bytes! # address
+  _tokens: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GRTWithdrawn @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  curator: Bytes! # address
+  nSignalBurnt: BigInt! # uint256
+  withdrawnGRT: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LegacySubgraphClaimed @entity(immutable: true) {
+  id: Bytes!
+  graphAccount: Bytes! # address
+  subgraphNumber: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ParameterUpdated @entity(immutable: true) {
+  id: Bytes!
+  param: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetController @entity(immutable: true) {
+  id: Bytes!
+  controller: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetDefaultName @entity(immutable: true) {
+  id: Bytes!
+  graphAccount: Bytes! # address
+  nameSystem: BigInt! # uint256
+  nameIdentifier: Bytes! # bytes32
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SignalBurned @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  curator: Bytes! # address
+  nSignalBurnt: BigInt! # uint256
+  vSignalBurnt: BigInt! # uint256
+  tokensReceived: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SignalMinted @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  curator: Bytes! # address
+  nSignalCreated: BigInt! # uint256
+  vSignalCreated: BigInt! # uint256
+  tokensDeposited: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SignalTransferred @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  from: Bytes! # address
+  to: Bytes! # address
+  nSignalTransferred: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphDeprecated @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  withdrawableGRT: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphL2TransferFinalized @entity(immutable: true) {
+  id: Bytes!
+  _l2SubgraphID: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphMetadataUpdated @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  subgraphMetadata: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphNFTUpdated @entity(immutable: true) {
+  id: Bytes!
+  subgraphNFT: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphPublished @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  subgraphDeploymentID: Bytes! # bytes32
+  reserveRatio: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphReceivedFromL1 @entity(immutable: true) {
+  id: Bytes!
+  _l1SubgraphID: BigInt! # uint256
+  _l2SubgraphID: BigInt! # uint256
+  _owner: Bytes! # address
+  _tokens: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphUpgraded @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  vSignalCreated: BigInt! # uint256
+  tokensSignalled: BigInt! # uint256
+  subgraphDeploymentID: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubgraphVersionUpdated @entity(immutable: true) {
+  id: Bytes!
+  subgraphID: BigInt! # uint256
+  subgraphDeploymentID: Bytes! # bytes32
+  versionMetadata: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
