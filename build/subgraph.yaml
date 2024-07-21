@@ -1,0 +1,128 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: L2GNS
+    network: arbitrum-one
+    source:
+      address: "0x5cBDB6cfB91d435c5899Fc05741e7D371fd71667"
+      abi: L2GNS
+      startBlock: 113533076
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractSynced
+        - CounterpartGNSAddressUpdated
+        - CuratorBalanceReceived
+        - CuratorBalanceReturnedToBeneficiary
+        - GRTWithdrawn
+        - LegacySubgraphClaimed
+        - ParameterUpdated
+        - SetController
+        - SetDefaultName
+        - SignalBurned
+        - SignalMinted
+        - SignalTransferred
+        - SubgraphDeprecated
+        - SubgraphL2TransferFinalized
+        - SubgraphMetadataUpdated
+        - SubgraphNFTUpdated
+        - SubgraphPublished
+        - SubgraphReceivedFromL1
+        - SubgraphUpgraded
+        - SubgraphVersionUpdated
+      abis:
+        - name: L2GNS
+          file: L2GNS/abis/L2GNS.json
+      eventHandlers:
+        - event: ContractSynced(indexed bytes32,address)
+          handler: handleContractSynced
+        - event: CounterpartGNSAddressUpdated(address)
+          handler: handleCounterpartGNSAddressUpdated
+        - event: CuratorBalanceReceived(indexed uint256,indexed uint256,indexed address,uint256)
+          handler: handleCuratorBalanceReceived
+        - event: CuratorBalanceReturnedToBeneficiary(indexed uint256,indexed address,uint256)
+          handler: handleCuratorBalanceReturnedToBeneficiary
+        - event: GRTWithdrawn(indexed uint256,indexed address,uint256,uint256)
+          handler: handleGRTWithdrawn
+        - event: LegacySubgraphClaimed(indexed address,uint256)
+          handler: handleLegacySubgraphClaimed
+        - event: ParameterUpdated(string)
+          handler: handleParameterUpdated
+        - event: SetController(address)
+          handler: handleSetController
+        - event: SetDefaultName(indexed address,uint256,bytes32,string)
+          handler: handleSetDefaultName
+        - event: SignalBurned(indexed uint256,indexed address,uint256,uint256,uint256)
+          handler: handleSignalBurned
+        - event: SignalMinted(indexed uint256,indexed address,uint256,uint256,uint256)
+          handler: handleSignalMinted
+        - event: SignalTransferred(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleSignalTransferred
+        - event: SubgraphDeprecated(indexed uint256,uint256)
+          handler: handleSubgraphDeprecated
+        - event: SubgraphL2TransferFinalized(indexed uint256)
+          handler: handleSubgraphL2TransferFinalized
+        - event: SubgraphMetadataUpdated(indexed uint256,bytes32)
+          handler: handleSubgraphMetadataUpdated
+        - event: SubgraphNFTUpdated(address)
+          handler: handleSubgraphNFTUpdated
+        - event: SubgraphPublished(indexed uint256,indexed bytes32,uint32)
+          handler: handleSubgraphPublished
+        - event: SubgraphReceivedFromL1(indexed uint256,indexed uint256,indexed address,uint256)
+          handler: handleSubgraphReceivedFromL1
+        - event: SubgraphUpgraded(indexed uint256,uint256,uint256,indexed bytes32)
+          handler: handleSubgraphUpgraded
+        - event: SubgraphVersionUpdated(indexed uint256,indexed bytes32,bytes32)
+          handler: handleSubgraphVersionUpdated
+      file: L2GNS/L2GNS.wasm
+  - kind: ethereum
+    name: Billing
+    network: arbitrum-one
+    source:
+      address: "0x1b07d3344188908fb6deceac381f3ee63c48477a"
+      abi: Billing
+      startBlock: 42472346
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CollectorUpdated
+        - InsufficientBalanceForRemoval
+        - L1BillingConnectorUpdated
+        - L2TokenGatewayUpdated
+        - NewOwnership
+        - NewPendingOwnership
+        - TokensAdded
+        - TokensPulled
+        - TokensRemoved
+        - TokensRescued
+      abis:
+        - name: Billing
+          file: Billing/abis/Billing.json
+      eventHandlers:
+        - event: CollectorUpdated(indexed address,bool)
+          handler: handleCollectorUpdated
+        - event: InsufficientBalanceForRemoval(indexed address,indexed address,uint256)
+          handler: handleInsufficientBalanceForRemoval
+        - event: L1BillingConnectorUpdated(address)
+          handler: handleL1BillingConnectorUpdated
+        - event: L2TokenGatewayUpdated(address)
+          handler: handleL2TokenGatewayUpdated
+        - event: NewOwnership(indexed address,indexed address)
+          handler: handleNewOwnership
+        - event: NewPendingOwnership(indexed address,indexed address)
+          handler: handleNewPendingOwnership
+        - event: TokensAdded(indexed address,uint256)
+          handler: handleTokensAdded
+        - event: TokensPulled(indexed address,uint256)
+          handler: handleTokensPulled
+        - event: TokensRemoved(indexed address,indexed address,uint256)
+          handler: handleTokensRemoved
+        - event: TokensRescued(indexed address,indexed address,uint256)
+          handler: handleTokensRescued
+      file: Billing/Billing.wasm
