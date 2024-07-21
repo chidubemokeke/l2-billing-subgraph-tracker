@@ -1,8 +1,11 @@
 {
   "arbitrum-one": {
-    "billing": {
-      "address": "0x1b07d3344188908fb6deceac381f3ee63c48477a",
-      "startBlock": 137277728
+    "L2GNS": {
+      "address": "0x5cBDB6cfB91d435c5899Fc05741e7D371fd71667",
+      "startBlock": 113533076
+    },
+    "Billing": {
+      "address": "0x1b07d3344188908fb6deceac381f3ee63c48477a"
     }
   }
 }

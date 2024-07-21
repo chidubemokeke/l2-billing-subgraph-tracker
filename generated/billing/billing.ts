@@ -234,9 +234,9 @@ export class TokensRescued__Params {
   }
 }
 
-export class billing extends ethereum.SmartContract {
-  static bind(address: Address): billing {
-    return new billing("billing", address);
+export class Billing extends ethereum.SmartContract {
+  static bind(address: Address): Billing {
+    return new Billing("Billing", address);
   }
 
   governor(): Address {

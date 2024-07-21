@@ -11,7 +11,7 @@ import {
   TokensPulled,
   TokensRemoved,
   TokensRescued
-} from "../generated/billing/billing"
+} from "../generated/Billing/Billing"
 
 export function createCollectorUpdatedEvent(
   collector: Address,
@@ -36,9 +36,8 @@ export function createInsufficientBalanceForRemovalEvent(
   to: Address,
   amount: BigInt
 ): InsufficientBalanceForRemoval {
-  let insufficientBalanceForRemovalEvent = changetype<
-    InsufficientBalanceForRemoval
-  >(newMockEvent())
+  let insufficientBalanceForRemovalEvent =
+    changetype<InsufficientBalanceForRemoval>(newMockEvent())
 
   insufficientBalanceForRemovalEvent.parameters = new Array()
 
